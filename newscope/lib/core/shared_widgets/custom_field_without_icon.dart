@@ -20,7 +20,7 @@ class CustomFieldWithoutIcon extends StatelessWidget {
   final TextEditingController textEditingController;
   final TextInputType? keyboardType;
   FocusNode? focusNode;
-  void Function(String) ? onFieldSubmitted;
+  void Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +51,7 @@ class CustomFieldWithoutIcon extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.002,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.002),
         Form(
           key: nameForKey,
           child: TextFormField(
@@ -99,11 +97,10 @@ class CustomFieldWithoutIcon extends StatelessWidget {
     required Color borderColor,
   }) {
     return OutlineInputBorder(
-      borderRadius:
-          BorderRadius.circular(MediaQuery.of(context).size.width * 0.02),
-      borderSide: BorderSide(
-        color: borderColor,
+      borderRadius: BorderRadius.circular(
+        MediaQuery.of(context).size.width * 0.02,
       ),
+      borderSide: BorderSide(color: borderColor),
     );
   }
 }

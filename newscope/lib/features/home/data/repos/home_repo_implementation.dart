@@ -10,8 +10,9 @@ import '../models/source_model.dart';
 
 class HomeRepoImplementationFromApi implements HomeRepo {
   @override
-  Future<Either<Failure, List<NewModel>>> getTopHeadLine(
-      {required String category}) async {
+  Future<Either<Failure, List<NewModel>>> getTopHeadLine({
+    required String category,
+  }) async {
     List<NewModel> news = [];
     try {
       var response = await http.get(
@@ -37,20 +38,17 @@ class HomeRepoImplementationFromApi implements HomeRepo {
         }
         return right(news);
       } else {
-        return left(
-          ApiFailure(message: jsonDecode(response.body)["message"]),
-        );
+        return left(ApiFailure(message: jsonDecode(response.body)["message"]));
       }
     } catch (e) {
-      return left(
-        ApiFailure(message: "Oops error occurred!"),
-      );
+      return left(ApiFailure(message: "Oops error occurred!"));
     }
   }
 
   @override
-  Future<Either<Failure, List<NewModel>>> searchForNews(
-      {required String q}) async {
+  Future<Either<Failure, List<NewModel>>> searchForNews({
+    required String q,
+  }) async {
     List<NewModel> searchNews = [];
     try {
       var response = await http.get(
@@ -76,14 +74,10 @@ class HomeRepoImplementationFromApi implements HomeRepo {
         }
         return right(searchNews);
       } else {
-        return left(
-          ApiFailure(message: jsonDecode(response.body)["message"]),
-        );
+        return left(ApiFailure(message: jsonDecode(response.body)["message"]));
       }
     } catch (e) {
-      return left(
-        ApiFailure(message: "Oops error occurred!"),
-      );
+      return left(ApiFailure(message: "Oops error occurred!"));
     }
   }
 }

@@ -10,30 +10,19 @@ class SignUpFirebaseImplementation extends SignUpRepo {
     required String pas,
   }) async {
     try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: pas,
-      );
+      final credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: pas);
       return right(null);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        return left(
-          FirebaseFailure(message: 'weak-password'),
-        );
+        return left(FirebaseFailure(message: 'weak-password'));
       } else if (e.code == 'email-already-in-use') {
-        return left(
-          FirebaseFailure(message: 'email-already-in-use'),
-        );
+        return left(FirebaseFailure(message: 'email-already-in-use'));
       } else {
-        return left(
-          FirebaseFailure(message: 'error'),
-        );
+        return left(FirebaseFailure(message: 'error'));
       }
     } catch (e) {
-      return left(
-        FirebaseFailure(message: e.toString()),
-      );
+      return left(FirebaseFailure(message: e.toString()));
     }
   }
 }

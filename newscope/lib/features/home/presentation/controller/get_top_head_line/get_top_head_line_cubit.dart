@@ -5,7 +5,7 @@ import 'package:news_wave/features/home/presentation/controller/get_top_head_lin
 
 class GetTopHeadLineCubit extends Cubit<GetTopHeadLineStates> {
   GetTopHeadLineCubit({required this.homeRepo})
-      : super(GetTopHeadLineInitialStates());
+    : super(GetTopHeadLineInitialStates());
   final HomeRepo homeRepo;
   List<NewModel> topHeadLine = [];
   Map<int, List<NewModel>> mapForNews = {};
@@ -18,20 +18,16 @@ class GetTopHeadLineCubit extends Cubit<GetTopHeadLineStates> {
     var result = await homeRepo.getTopHeadLine(category: category);
     result.fold(
       (l) {
-        emit(
-          GetTopHeadLineFailureStates(errorMessage: l.message),
-        );
+        emit(GetTopHeadLineFailureStates(errorMessage: l.message));
       },
       (r) {
         topHeadLine = r;
-        topHeadLine = topHeadLine.map(
-          (newsItem) {
-            if (bookMarksList.any((bookMark) => bookMark == newsItem)) {
-              newsItem.bookMark = true;
-            }
-            return newsItem;
-          },
-        ).toList();
+        topHeadLine = topHeadLine.map((newsItem) {
+          if (bookMarksList.any((bookMark) => bookMark == newsItem)) {
+            newsItem.bookMark = true;
+          }
+          return newsItem;
+        }).toList();
         mapForNews.addAll({index: topHeadLine});
         emit(GetTopHeadLineSuccessStates());
       },

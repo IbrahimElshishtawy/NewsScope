@@ -11,9 +11,8 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SignUpCubit(
-        signUpRepo: SignUpFirebaseImplementation()
-      ),
+      create: (context) =>
+          SignUpCubit(signUpRepo: SignUpFirebaseImplementation()),
       child: const Scaffold(
         backgroundColor: AppColors.mainColor,
         body: SignUpBody(),

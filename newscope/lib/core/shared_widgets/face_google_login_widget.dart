@@ -4,8 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import '../utils/app_colors.dart';
 
 class FaceGoogleLoginWidget extends StatelessWidget {
-  const FaceGoogleLoginWidget(
-      {super.key, required this.widget, required this.title,required this.onTap});
+  const FaceGoogleLoginWidget({
+    super.key,
+    required this.widget,
+    required this.title,
+    required this.onTap,
+  });
 
   final Widget widget;
   final String title;
@@ -28,9 +32,7 @@ class FaceGoogleLoginWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             widget,
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.02,
-            ),
+            SizedBox(width: MediaQuery.of(context).size.width * 0.02),
             Text(
               title,
               style: GoogleFonts.poppins(

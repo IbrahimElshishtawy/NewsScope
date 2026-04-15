@@ -12,9 +12,11 @@ class SearchWidget extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) {
-            return const SearchScreen();
-          }),
+          MaterialPageRoute(
+            builder: (context) {
+              return const SearchScreen();
+            },
+          ),
         );
       },
       child: Container(
@@ -23,8 +25,9 @@ class SearchWidget extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.9,
         height: MediaQuery.of(context).size.height * 0.05,
         decoration: BoxDecoration(
-          borderRadius:
-              BorderRadius.circular(MediaQuery.of(context).size.width * 0.02),
+          borderRadius: BorderRadius.circular(
+            MediaQuery.of(context).size.width * 0.02,
+          ),
           border: Border.all(color: AppColors.mainColor),
         ),
         child: Row(

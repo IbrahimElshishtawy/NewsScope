@@ -12,10 +12,9 @@ class BookMarksScreen extends StatelessWidget {
     return BlocBuilder<BookMarkCubit, BookMarkStates>(
       builder: (context, state) {
         return ListViewForNews(
-          news: BlocProvider.of<BookMarkCubit>(context)
-              .bookMarks
-              .toSet()
-              .toList(),
+          news: BlocProvider.of<BookMarkCubit>(
+            context,
+          ).bookMarks.toSet().toList(),
         );
       },
     );

@@ -14,22 +14,19 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-      const Duration(
-        seconds: 3,
-      ),
-      () {
-        navigateToLogin();
-      },
-    );
+    Future.delayed(const Duration(seconds: 3), () {
+      navigateToLogin();
+    });
   }
 
   navigateToLogin() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) {
-        return const LoginScreen();
-      }),
+      MaterialPageRoute(
+        builder: (context) {
+          return const LoginScreen();
+        },
+      ),
     );
   }
 
@@ -37,9 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: AppColors.mainColor,
-      body: SafeArea(
-        child: SplashBody(),
-      ),
+      body: SafeArea(child: SplashBody()),
     );
   }
 }

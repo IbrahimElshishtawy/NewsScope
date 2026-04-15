@@ -11,9 +11,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginCubit(
-        loginRepo: LoginFirebaseImplementation(),
-      ),
+      create: (context) => LoginCubit(loginRepo: LoginFirebaseImplementation()),
       child: const Scaffold(
         backgroundColor: AppColors.mainColor,
         body: LoginBody(),

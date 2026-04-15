@@ -54,9 +54,7 @@ class _FillProfileBodyState extends State<FillProfileBody> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
           Center(
             child: Text(
               AppTexts.fillYourProfile,
@@ -69,9 +67,7 @@ class _FillProfileBodyState extends State<FillProfileBody> {
               ),
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.03,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           GestureDetector(
             onTap: () {
               showModalBottomSheet(
@@ -95,7 +91,8 @@ class _FillProfileBodyState extends State<FillProfileBody> {
                                 children: [
                                   Icon(
                                     Icons.photo_size_select_actual,
-                                    size: MediaQuery.of(context).size.height *
+                                    size:
+                                        MediaQuery.of(context).size.height *
                                         0.05,
                                     color: AppColors.mainColor,
                                   ),
@@ -104,7 +101,7 @@ class _FillProfileBodyState extends State<FillProfileBody> {
                                     style: TextStyle(
                                       fontSize:
                                           MediaQuery.of(context).size.height *
-                                              0.02,
+                                          0.02,
                                       color: AppColors.mainColor,
                                     ),
                                   ),
@@ -124,7 +121,8 @@ class _FillProfileBodyState extends State<FillProfileBody> {
                                 children: [
                                   Icon(
                                     Icons.add_a_photo,
-                                    size: MediaQuery.of(context).size.height *
+                                    size:
+                                        MediaQuery.of(context).size.height *
                                         0.05,
                                     color: AppColors.mainColor,
                                   ),
@@ -133,7 +131,7 @@ class _FillProfileBodyState extends State<FillProfileBody> {
                                     style: TextStyle(
                                       fontSize:
                                           MediaQuery.of(context).size.height *
-                                              0.02,
+                                          0.02,
                                       color: AppColors.mainColor,
                                     ),
                                   ),
@@ -156,10 +154,9 @@ class _FillProfileBodyState extends State<FillProfileBody> {
                 width: MediaQuery.of(context).size.width * 0.5,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(
-                      MediaQuery.of(context).size.width * 0.24),
-                  border: Border.all(
-                    color: AppColors.mainColor,
+                    MediaQuery.of(context).size.width * 0.24,
                   ),
+                  border: Border.all(color: AppColors.mainColor),
                 ),
                 child: image == null
                     ? Icon(
@@ -169,41 +166,33 @@ class _FillProfileBodyState extends State<FillProfileBody> {
                       )
                     : ClipRRect(
                         borderRadius: BorderRadius.circular(
-                            MediaQuery.of(context).size.width * 0.23),
-                        child: Image.file(
-                          File(
-                            image!.path,
-                          ),
-                          fit: BoxFit.cover,
+                          MediaQuery.of(context).size.width * 0.23,
                         ),
+                        child: Image.file(File(image!.path), fit: BoxFit.cover),
                       ),
               ),
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.03,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.05),
+              horizontal: MediaQuery.of(context).size.width * 0.05,
+            ),
             child: CustomFieldWithoutIcon(
               title: AppTexts.fullName,
               nameForKey: fullNameKey,
               textEditingController: fullNameController,
               errorTitle: AppTexts.errorUsername,
               onFieldSubmitted: (p0) {
-                FocusScope.of(context).requestFocus(
-                  emailNode,
-                );
+                FocusScope.of(context).requestFocus(emailNode);
               },
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.03,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.05),
+              horizontal: MediaQuery.of(context).size.width * 0.05,
+            ),
             child: CustomFieldWithoutIcon(
               title: AppTexts.emailAddress,
               focusNode: emailNode,
@@ -212,25 +201,20 @@ class _FillProfileBodyState extends State<FillProfileBody> {
               textEditingController: emailAddressController,
               errorTitle: AppTexts.errorEmail,
               onFieldSubmitted: (p0) {
-                FocusScope.of(context).requestFocus(
-                  phoneNode,
-                );
+                FocusScope.of(context).requestFocus(phoneNode);
               },
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.03,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.05),
+              horizontal: MediaQuery.of(context).size.width * 0.05,
+            ),
             child: CustomFieldWithoutIcon(
               title: AppTexts.phoneNumber,
               focusNode: phoneNode,
               onFieldSubmitted: (p0) {
-                FocusScope.of(context).requestFocus(
-                  FocusNode(),
-                );
+                FocusScope.of(context).requestFocus(FocusNode());
               },
               nameForKey: phoneNumberKey,
               keyboardType: TextInputType.phone,
@@ -238,12 +222,11 @@ class _FillProfileBodyState extends State<FillProfileBody> {
               errorTitle: AppTexts.errorPhoneNumber,
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.1),
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.05),
+              horizontal: MediaQuery.of(context).size.width * 0.05,
+            ),
             child: CustomButton(
               title: AppTexts.next,
               onPressed: () {
@@ -272,18 +255,20 @@ class _FillProfileBodyState extends State<FillProfileBody> {
                                       children: [
                                         Icon(
                                           Icons.photo_size_select_actual,
-                                          size: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
+                                          size:
+                                              MediaQuery.of(
+                                                context,
+                                              ).size.height *
                                               0.05,
                                           color: AppColors.mainColor,
                                         ),
                                         Text(
                                           AppTexts.gallery,
                                           style: TextStyle(
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
+                                            fontSize:
+                                                MediaQuery.of(
+                                                  context,
+                                                ).size.height *
                                                 0.02,
                                             color: AppColors.mainColor,
                                           ),
@@ -304,18 +289,20 @@ class _FillProfileBodyState extends State<FillProfileBody> {
                                       children: [
                                         Icon(
                                           Icons.add_a_photo,
-                                          size: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
+                                          size:
+                                              MediaQuery.of(
+                                                context,
+                                              ).size.height *
                                               0.05,
                                           color: AppColors.mainColor,
                                         ),
                                         Text(
                                           AppTexts.camera,
                                           style: TextStyle(
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
+                                            fontSize:
+                                                MediaQuery.of(
+                                                  context,
+                                                ).size.height *
                                                 0.02,
                                             color: AppColors.mainColor,
                                           ),
@@ -333,11 +320,11 @@ class _FillProfileBodyState extends State<FillProfileBody> {
                   } else {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) {
-                        return HomeBottom(
-                          image: image,
-                        );
-                      }),
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return HomeBottom(image: image);
+                        },
+                      ),
                     );
                   }
                 }

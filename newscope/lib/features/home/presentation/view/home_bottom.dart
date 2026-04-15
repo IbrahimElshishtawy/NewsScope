@@ -39,8 +39,9 @@ class _HomeBottomState extends State<HomeBottom> {
         title: Image.asset(AppImages.newsHomeLogo),
         toolbarHeight: MediaQuery.of(context).size.height * 0.1,
         leading: Padding(
-          padding:
-              EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.02),
+          padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.02,
+          ),
           child: CircleAvatar(
             radius: MediaQuery.of(context).size.width * 0.1,
             backgroundImage: Image.file(

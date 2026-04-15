@@ -16,10 +16,7 @@ class SourceModelAdapter extends TypeAdapter<SourceModel> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return SourceModel(
-      id: fields[8] as String?,
-      name: fields[9] as String?,
-    );
+    return SourceModel(id: fields[8] as String?, name: fields[9] as String?);
   }
 
   @override

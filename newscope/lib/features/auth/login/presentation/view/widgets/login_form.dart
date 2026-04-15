@@ -47,18 +47,15 @@ class _LoginFormState extends State<LoginForm> {
           width: MediaQuery.of(context).size.width * 0.01,
           height: MediaQuery.of(context).size.height * 0.03,
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.025,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.025),
         Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.05),
+            horizontal: MediaQuery.of(context).size.width * 0.05,
+          ),
           child: CustomFieldWithoutIcon(
             title: AppTexts.emailAddress,
             onFieldSubmitted: (p0) {
-              FocusScope.of(context).requestFocus(
-                passwordNode,
-              );
+              FocusScope.of(context).requestFocus(passwordNode);
             },
             nameForKey: emailAddressKay,
             keyboardType: TextInputType.emailAddress,
@@ -66,9 +63,7 @@ class _LoginFormState extends State<LoginForm> {
             errorTitle: AppTexts.errorUsername,
           ),
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.03,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.05,
@@ -77,9 +72,7 @@ class _LoginFormState extends State<LoginForm> {
             title: AppTexts.password,
             focusNode: passwordNode,
             onFieldSubmitted: (p0) {
-              FocusScope.of(context).requestFocus(
-                FocusNode(),
-              );
+              FocusScope.of(context).requestFocus(FocusNode());
             },
             keyboardType: TextInputType.visiblePassword,
             suffixIcon: IconButton(
@@ -89,10 +82,7 @@ class _LoginFormState extends State<LoginForm> {
                 });
               },
               icon: passwordIsHidden
-                  ? const Icon(
-                      Icons.visibility,
-                      color: AppColors.mainColor,
-                    )
+                  ? const Icon(Icons.visibility, color: AppColors.mainColor)
                   : const Icon(
                       Icons.visibility_off_rounded,
                       color: AppColors.mainColor,
@@ -108,7 +98,8 @@ class _LoginFormState extends State<LoginForm> {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.011),
+                left: MediaQuery.of(context).size.width * 0.011,
+              ),
               child: Checkbox(
                 value: checkBox,
                 activeColor: AppColors.mainColor,
@@ -141,9 +132,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ],
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.01,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.05,
@@ -164,17 +153,17 @@ class _LoginFormState extends State<LoginForm> {
               } else if (state is LoginSuccessState) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) {
-                    return const FillProfileScreen();
-                  }),
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const FillProfileScreen();
+                    },
+                  ),
                 );
               }
             },
             builder: (context, state) {
               return state is LoginLoadingState
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
+                  ? const Center(child: CircularProgressIndicator())
                   : CustomButton(
                       title: AppTexts.login,
                       onPressed: () {
@@ -189,9 +178,7 @@ class _LoginFormState extends State<LoginForm> {
             },
           ),
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.02,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
         Text(
           AppTexts.orContinueWith,
           textAlign: TextAlign.center,
@@ -201,13 +188,9 @@ class _LoginFormState extends State<LoginForm> {
             fontSize: MediaQuery.of(context).size.height * 0.02,
           ),
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.035,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.035),
         const FaceOrGoogleLogin(),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.03,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -225,9 +208,11 @@ class _LoginFormState extends State<LoginForm> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) {
-                    return const SignUpScreen();
-                  }),
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const SignUpScreen();
+                    },
+                  ),
                 );
               },
               child: Text(

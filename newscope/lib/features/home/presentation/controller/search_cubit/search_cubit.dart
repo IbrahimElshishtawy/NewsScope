@@ -12,9 +12,7 @@ class SearchCubit extends Cubit<SearchStates> {
     var result = await homeRepo.searchForNews(q: q);
     result.fold(
       (l) {
-        emit(
-          SearchFailureStates(errorMessage: l.message),
-        );
+        emit(SearchFailureStates(errorMessage: l.message));
       },
       (r) {
         searchNews = r;

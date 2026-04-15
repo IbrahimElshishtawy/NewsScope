@@ -14,7 +14,7 @@ class SignUpCubit extends Cubit<SignUpStates> {
     required String passwordText,
     required String confirmPasswordText,
     required String emailAddressText,
-  })  async {
+  }) async {
     {
       if (emailAddressKay.currentState!.validate() &&
           passwordKay.currentState!.validate() &&
@@ -27,14 +27,10 @@ class SignUpCubit extends Cubit<SignUpStates> {
         );
         result.fold(
           (l) {
-            emit(
-              SignUpFailureState(errorMessage: l.message),
-            );
+            emit(SignUpFailureState(errorMessage: l.message));
           },
           (r) {
-            emit(
-              SignUpSuccessState(),
-            );
+            emit(SignUpSuccessState());
           },
         );
       }

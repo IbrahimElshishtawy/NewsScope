@@ -43,11 +43,10 @@ class _SignUpFormState extends State<SignUpForm> {
     required Color borderColor,
   }) {
     return OutlineInputBorder(
-      borderRadius:
-          BorderRadius.circular(MediaQuery.of(context).size.width * 0.02),
-      borderSide: BorderSide(
-        color: borderColor,
+      borderRadius: BorderRadius.circular(
+        MediaQuery.of(context).size.width * 0.02,
       ),
+      borderSide: BorderSide(color: borderColor),
     );
   }
 
@@ -68,12 +67,11 @@ class _SignUpFormState extends State<SignUpForm> {
           width: MediaQuery.of(context).size.width * 0.01,
           height: MediaQuery.of(context).size.height * 0.03,
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.025,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.025),
         Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.05),
+            horizontal: MediaQuery.of(context).size.width * 0.05,
+          ),
           child: CustomFieldWithoutIcon(
             title: AppTexts.emailAddress,
             nameForKey: emailAddressKay,
@@ -81,15 +79,11 @@ class _SignUpFormState extends State<SignUpForm> {
             textEditingController: emailAddressController,
             errorTitle: AppTexts.errorUsername,
             onFieldSubmitted: (p0) {
-              FocusScope.of(context).requestFocus(
-                passwordNode,
-              );
+              FocusScope.of(context).requestFocus(passwordNode);
             },
           ),
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.03,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.05,
@@ -105,10 +99,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 });
               },
               icon: passwordIsHidden
-                  ? const Icon(
-                      Icons.visibility,
-                      color: AppColors.mainColor,
-                    )
+                  ? const Icon(Icons.visibility, color: AppColors.mainColor)
                   : const Icon(
                       Icons.visibility_off_rounded,
                       color: AppColors.mainColor,
@@ -119,15 +110,11 @@ class _SignUpFormState extends State<SignUpForm> {
             isHidden: passwordIsHidden,
             errorTitle: AppTexts.errorPassword,
             onFieldSubmitted: (p0) {
-              FocusScope.of(context).requestFocus(
-                confirmPasswordNode,
-              );
+              FocusScope.of(context).requestFocus(confirmPasswordNode);
             },
           ),
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.03,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         Padding(
           padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * 0.05,
@@ -161,9 +148,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.002,
-              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.002),
               Form(
                 key: confirmPasswordKay,
                 child: TextFormField(
@@ -206,9 +191,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     ),
                   ),
                   onFieldSubmitted: (value) {
-                    FocusScope.of(context).requestFocus(
-                      FocusNode(),
-                    );
+                    FocusScope.of(context).requestFocus(FocusNode());
                   },
                   onTapOutside: (event) {
                     FocusManager.instance.primaryFocus?.unfocus();
@@ -232,7 +215,8 @@ class _SignUpFormState extends State<SignUpForm> {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.011),
+                left: MediaQuery.of(context).size.width * 0.011,
+              ),
               child: Checkbox(
                 value: checkBox,
                 activeColor: AppColors.mainColor,
@@ -253,12 +237,11 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
           ],
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.01,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
         Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.05),
+            horizontal: MediaQuery.of(context).size.width * 0.05,
+          ),
           child: BlocConsumer<SignUpCubit, SignUpStates>(
             listener: (context, state) async {
               if (state is SignUpFailureState) {
@@ -269,8 +252,8 @@ class _SignUpFormState extends State<SignUpForm> {
                   desc: state.errorMessage == "weak-password"
                       ? "This Password is weak"
                       : state.errorMessage == "email-already-in-use"
-                          ? "This email is exist"
-                          : "Error",
+                      ? "This email is exist"
+                      : "Error",
                   descTextStyle: TextStyle(
                     color: AppColors.red,
                     fontSize: MediaQuery.of(context).size.height * 0.02,
@@ -294,35 +277,34 @@ class _SignUpFormState extends State<SignUpForm> {
                     behavior: SnackBarBehavior.floating,
                   ),
                 );
-                await Future.delayed(
-                  const Duration(seconds: 2),
-                );
+                await Future.delayed(const Duration(seconds: 2));
                 if (context.mounted) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) {
-                      return const FillProfileScreen();
-                    }),
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return const FillProfileScreen();
+                      },
+                    ),
                   );
                 }
               }
             },
             builder: (context, state) {
               return state is SignUpLoadingState
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
+                  ? const Center(child: CircularProgressIndicator())
                   : CustomButton(
                       title: AppTexts.signUp,
                       onPressed: () {
-                        BlocProvider.of<SignUpCubit>(context)
-                            .signUpWithFirebase(
+                        BlocProvider.of<SignUpCubit>(
+                          context,
+                        ).signUpWithFirebase(
                           emailAddressKay: emailAddressKay,
                           passwordKay: passwordKay,
                           confirmPasswordKay: confirmPasswordKay,
                           passwordText: passwordController.text.trim(),
-                          confirmPasswordText:
-                              confirmPasswordController.text.trim(),
+                          confirmPasswordText: confirmPasswordController.text
+                              .trim(),
                           emailAddressText: emailAddressController.text.trim(),
                         );
                       },
@@ -330,9 +312,7 @@ class _SignUpFormState extends State<SignUpForm> {
             },
           ),
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.02,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
         Text(
           AppTexts.orContinueWith,
           textAlign: TextAlign.center,
@@ -342,13 +322,9 @@ class _SignUpFormState extends State<SignUpForm> {
             fontSize: MediaQuery.of(context).size.height * 0.02,
           ),
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.035,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.035),
         const FaceOrGoogleLogin(),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.03,
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

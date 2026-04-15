@@ -13,18 +13,12 @@ class FaceOrGoogleLogin extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         FaceGoogleLoginWidget(
-          widget: const Icon(
-            Icons.facebook_rounded,
-            color: AppColors.blue,
-          ),
+          widget: const Icon(Icons.facebook_rounded, color: AppColors.blue),
           title: AppTexts.facebook,
           onTap: () {},
         ),
         FaceGoogleLoginWidget(
-          widget: Image.asset(
-            AppImages.googleIcon,
-            fit: BoxFit.cover,
-          ),
+          widget: Image.asset(AppImages.googleIcon, fit: BoxFit.cover),
           title: AppTexts.google,
           onTap: () {},
         ),

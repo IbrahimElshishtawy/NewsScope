@@ -27,10 +27,7 @@ class ListViewForCategories extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return CategoryWidget(
-            index: index,
-            categoryModel: categories[index],
-          );
+          return CategoryWidget(index: index, categoryModel: categories[index]);
         },
         itemCount: categories.length,
       ),
@@ -39,8 +36,11 @@ class ListViewForCategories extends StatelessWidget {
 }
 
 class CategoryWidget extends StatelessWidget {
-  const CategoryWidget(
-      {super.key, required this.index, required this.categoryModel});
+  const CategoryWidget({
+    super.key,
+    required this.index,
+    required this.categoryModel,
+  });
 
   final int index;
   final CategoryModel categoryModel;
@@ -68,8 +68,10 @@ class CategoryWidget extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadiusDirectional.circular(
-                  MediaQuery.of(context).size.width * 0.05),
-              color: BlocProvider.of<CategoriesCubit>(context).categoryIndex ==
+                MediaQuery.of(context).size.width * 0.05,
+              ),
+              color:
+                  BlocProvider.of<CategoriesCubit>(context).categoryIndex ==
                       index
                   ? AppColors.mainColor
                   : AppColors.white,
@@ -81,9 +83,9 @@ class CategoryWidget extends StatelessWidget {
                 fontSize: MediaQuery.of(context).size.height * 0.025,
                 color:
                     BlocProvider.of<CategoriesCubit>(context).categoryIndex ==
-                            index
-                        ? AppColors.white
-                        : AppColors.black,
+                        index
+                    ? AppColors.white
+                    : AppColors.black,
               ),
             ),
           ),

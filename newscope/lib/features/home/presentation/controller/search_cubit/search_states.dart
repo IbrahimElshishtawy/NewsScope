@@ -6,9 +6,7 @@ class SearchLoadingStates extends SearchStates {}
 
 class SearchFailureStates extends SearchStates {
   final String errorMessage;
-  SearchFailureStates({
-    required this.errorMessage,
-  });
+  SearchFailureStates({required this.errorMessage});
 }
 
 class SearchSuccessStates extends SearchStates {}

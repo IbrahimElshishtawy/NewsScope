@@ -7,7 +7,5 @@ abstract class HomeRepo {
     required String category,
   });
 
-  Future<Either<Failure, List<NewModel>>> searchForNews({
-    required String q,
-  });
+  Future<Either<Failure, List<NewModel>>> searchForNews({required String q});
 }

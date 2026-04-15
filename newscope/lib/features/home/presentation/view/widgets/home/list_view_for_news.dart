@@ -14,9 +14,7 @@ class ListViewForNews extends StatelessWidget {
         return NewWidget(newModel: news[index]);
       },
       separatorBuilder: (context, index) {
-        return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.015,
-        );
+        return SizedBox(height: MediaQuery.of(context).size.height * 0.015);
       },
       itemCount: news.length,
     );

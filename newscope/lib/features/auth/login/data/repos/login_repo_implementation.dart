@@ -10,29 +10,22 @@ class LoginFirebaseImplementation extends LoginRepo {
     required String pas,
   }) async {
     try {
-      UserCredential credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email.trim(),
-        password: pas.trim(),
-      );
+      UserCredential credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+            email: email.trim(),
+            password: pas.trim(),
+          );
       return right(null);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        return left(
-          FirebaseFailure(message: 'Error'),
-        );
+        return left(FirebaseFailure(message: 'Error'));
       } else if (e.code == 'wrong-password') {
-        return left(
-          FirebaseFailure(message: 'Error'),
-        );
+        return left(FirebaseFailure(message: 'Error'));
       } else {
-        return left(
-          FirebaseFailure(message: 'Error'),
-        );
+        return left(FirebaseFailure(message: 'Error'));
       }
     } catch (e) {
-      return left(
-        FirebaseFailure(message: e.toString()),
-      );
+      return left(FirebaseFailure(message: e.toString()));
     }
   }
 }

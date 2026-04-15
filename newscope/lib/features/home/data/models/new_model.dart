@@ -35,13 +35,12 @@ class NewModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        title,
-        description,
-        content,
-        url,
-        urlToImage,
-        publishedAt,
-        sourceModel,
-      ];
+    title,
+    description,
+    content,
+    url,
+    urlToImage,
+    publishedAt,
+    sourceModel,
+  ];
 }
-

@@ -25,14 +25,10 @@ class LoginCubit extends Cubit<LoginStates> {
         );
         result.fold(
           (l) {
-            emit(
-              LoginFailureState(errorMessage: l.message),
-            );
+            emit(LoginFailureState(errorMessage: l.message));
           },
           (r) {
-            emit(
-              LoginSuccessState(),
-            );
+            emit(LoginSuccessState());
           },
         );
       }

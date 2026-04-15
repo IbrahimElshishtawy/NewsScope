@@ -9,14 +9,8 @@ class SourceModel extends Equatable {
   @HiveField(9)
   final String? name;
 
-  const SourceModel({
-    required this.id,
-    required this.name,
-  });
+  const SourceModel({required this.id, required this.name});
 
   @override
-  List<Object?> get props => [
-        id,
-        name,
-      ];
+  List<Object?> get props => [id, name];
 }

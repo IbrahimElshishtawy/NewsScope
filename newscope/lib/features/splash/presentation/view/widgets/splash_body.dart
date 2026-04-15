@@ -6,8 +6,6 @@ class SplashBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: LogoWidget(),
-    );
+    return const Center(child: LogoWidget());
   }
 }

@@ -12,9 +12,8 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SearchCubit(
-        homeRepo: HomeRepoImplementationFromApi(),
-      ),
+      create: (context) =>
+          SearchCubit(homeRepo: HomeRepoImplementationFromApi()),
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -38,34 +37,35 @@ class SearchBody extends StatelessWidget {
     return BlocConsumer<SearchCubit, SearchStates>(
       listener: (context, state) {
         if (state is SearchFailureStates) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.errorMessage),
-            ),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
         }
       },
       builder: (context, state) {
         return Column(
           children: [
             Padding(
-              padding:
-                  EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
+              padding: EdgeInsets.all(
+                MediaQuery.of(context).size.height * 0.02,
+              ),
               child: TextFormField(
                 onChanged: (value) {
-                  BlocProvider.of<SearchCubit>(context).getSearch(
-                    q: value.trim(),
-                  );
+                  BlocProvider.of<SearchCubit>(
+                    context,
+                  ).getSearch(q: value.trim());
                 },
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
-                        MediaQuery.of(context).size.width * 0.02),
+                      MediaQuery.of(context).size.width * 0.02,
+                    ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: const BorderSide(color: AppColors.mainColor),
                     borderRadius: BorderRadius.circular(
-                        MediaQuery.of(context).size.width * 0.02),
+                      MediaQuery.of(context).size.width * 0.02,
+                    ),
                   ),
                   hintText: "Search",
                 ),
@@ -73,9 +73,7 @@ class SearchBody extends StatelessWidget {
             ),
             Expanded(
               child: state is SearchLoadingStates
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
+                  ? const Center(child: CircularProgressIndicator())
                   : ListViewForNews(
                       news: BlocProvider.of<SearchCubit>(context).searchNews,
                     ),

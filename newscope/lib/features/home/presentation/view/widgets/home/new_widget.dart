@@ -17,7 +17,6 @@ class NewWidget extends StatefulWidget {
 }
 
 class _NewWidgetState extends State<NewWidget> {
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BookMarkCubit, BookMarkStates>(
@@ -30,7 +29,8 @@ class _NewWidgetState extends State<NewWidget> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(
-                    MediaQuery.of(context).size.width * 0.03),
+                  MediaQuery.of(context).size.width * 0.03,
+                ),
                 child: CachedNetworkImage(
                   imageUrl: widget.newModel.urlToImage ?? "",
                   placeholder: (context, url) =>
@@ -38,9 +38,7 @@ class _NewWidgetState extends State<NewWidget> {
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.01,
-              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               Text(
                 widget.newModel.title ?? "",
                 overflow: TextOverflow.ellipsis,
@@ -51,9 +49,7 @@ class _NewWidgetState extends State<NewWidget> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.01,
-              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               Row(
                 children: [
                   Text(
@@ -63,22 +59,16 @@ class _NewWidgetState extends State<NewWidget> {
                       fontSize: MediaQuery.of(context).size.height * 0.02,
                     ),
                   ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.02,
-                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                   const Icon(Icons.date_range),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.02,
-                  ),
-                  Text(
-                    convertDate(widget.newModel.publishedAt),
-                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                  Text(convertDate(widget.newModel.publishedAt)),
                   const Spacer(),
                   IconButton(
                     onPressed: () {
-                      BlocProvider.of<BookMarkCubit>(context).changeBookMark(
-                        widget.newModel,
-                      );
+                      BlocProvider.of<BookMarkCubit>(
+                        context,
+                      ).changeBookMark(widget.newModel);
                     },
                     icon: widget.newModel.bookMark == false
                         ? const Icon(
