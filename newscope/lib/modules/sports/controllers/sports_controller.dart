@@ -1,8 +1,7 @@
 import 'package:newscope/core/constants/section_keys.dart';
 import 'package:newscope/core/controllers/broadcast_section_controller.dart';
-import 'package:newscope/data/repositories/news_content_repository.dart';
 
 class SportsController extends BroadcastSectionController {
-  SportsController({required NewsContentRepository repository})
-    : super(repository: repository, sectionKey: SectionKeys.sports);
+  SportsController({required super.repository})
+    : super(sectionKey: SectionKeys.sports);
 }

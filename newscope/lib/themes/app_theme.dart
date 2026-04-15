@@ -26,7 +26,7 @@ class AppTheme {
         labelLarge: AppTextStyles.button,
       ),
       dividerColor: AppColors.softGray,
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 0,
         color: AppColors.paperWhite,
         surfaceTintColor: Colors.transparent,
