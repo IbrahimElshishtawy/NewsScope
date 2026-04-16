@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newscope/modules/outro/controllers/outro_controller.dart';
-import 'package:newscope/shared/widgets/custom_section_title.dart';
-import 'package:newscope/shared/widgets/program_shell.dart';
 import 'package:newscope/themes/app_colors.dart';
 import 'package:newscope/themes/app_text_styles.dart';
 
@@ -11,59 +9,157 @@ class OutroView extends GetView<OutroController> {
 
   @override
   Widget build(BuildContext context) {
-    return ProgramShell(
-      title: 'Programme Outro',
-      subtitle: 'Closing panel and sign-off for the evening bulletin.',
-      tickerItems: controller.tickerItems,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(28),
-            decoration: BoxDecoration(
-              color: AppColors.paperWhite,
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(color: AppColors.softGray),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Closing Remarks', style: AppTextStyles.pageTitle),
-                const SizedBox(height: 16),
-                Text(
-                  'The programme signs off with a calm review of the lead bulletin, a look toward tomorrow\'s planning board, and a direct route back to the home dashboard.',
-                  style: AppTextStyles.body,
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: controller.backToDashboard,
-                  child: const Text('Return To Dashboard'),
-                ),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF06111F),
+                AppColors.midnightBlue,
+                Color(0xFF102E4C),
               ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
             ),
           ),
-          const SizedBox(height: 24),
-          const CustomSectionTitle(
-            title: 'Closing Notes',
-            subtitle:
-                'Short editorial reminders for the final minute of the show.',
-          ),
-          const SizedBox(height: 16),
-          for (final note in controller.closingNotes) ...[
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.only(bottom: 14),
-              padding: const EdgeInsets.all(18),
-              decoration: BoxDecoration(
-                color: AppColors.paperWhite,
-                borderRadius: BorderRadius.circular(18),
-                border: Border.all(color: AppColors.softGray),
+          child: Stack(
+            children: [
+              Positioned(
+                top: -90,
+                left: -70,
+                child: Container(
+                  width: 260,
+                  height: 260,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.paperWhite.withValues(alpha: 0.05),
+                  ),
+                ),
               ),
-              child: Text(note, style: AppTextStyles.bodyStrong),
-            ),
-          ],
-        ],
+              Positioned(
+                bottom: -80,
+                right: -40,
+                child: Container(
+                  width: 240,
+                  height: 240,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.broadcastRed.withValues(alpha: 0.14),
+                  ),
+                ),
+              ),
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Spacer(),
+                      Center(
+                        child: Container(
+                          constraints: const BoxConstraints(maxWidth: 560),
+                          padding: const EdgeInsets.all(30),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(32),
+                            color: AppColors.paperWhite.withValues(alpha: 0.07),
+                            border: Border.all(
+                              color: AppColors.paperWhite.withValues(
+                                alpha: 0.10,
+                              ),
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                width: 112,
+                                height: 112,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.paperWhite.withValues(
+                                    alpha: 0.08,
+                                  ),
+                                  border: Border.all(
+                                    color: AppColors.paperWhite.withValues(
+                                      alpha: 0.18,
+                                    ),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'NS',
+                                    style: AppTextStyles.masthead.copyWith(
+                                      color: AppColors.paperWhite,
+                                      fontSize: 34,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              Text(
+                                'شكراً لمتابعتكم',
+                                style: AppTextStyles.masthead.copyWith(
+                                  color: AppColors.paperWhite,
+                                  fontSize: 34,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              Text(
+                                'كان معكم فريق نشرة المساء. نلقاكم في موجزٍ قادم بطابع مهني هادئ ورسالة إخبارية واضحة.',
+                                textAlign: TextAlign.center,
+                                style: AppTextStyles.body.copyWith(
+                                  color: AppColors.softGray,
+                                ),
+                              ),
+                              const SizedBox(height: 22),
+                              ...controller.closingNotes.map(
+                                (note) => Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: Text(
+                                    note,
+                                    textAlign: TextAlign.center,
+                                    style: AppTextStyles.caption.copyWith(
+                                      color: AppColors.paperWhite,
+                                      height: 1.7,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 18),
+                              ElevatedButton.icon(
+                                onPressed: controller.backToDashboard,
+                                icon: const Icon(Icons.home_outlined),
+                                label: const Text('العودة إلى الرئيسية'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 14,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: AppColors.broadcastRed,
+                        ),
+                        child: Text(
+                          controller.tickerItems.join('  •  '),
+                          style: AppTextStyles.ticker,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

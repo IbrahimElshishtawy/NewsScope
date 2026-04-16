@@ -8,12 +8,16 @@ class OutroController extends GetxController {
 
   final NewsContentRepository _repository;
 
-  List<String> get tickerItems => _repository.getHomeTickerItems();
+  List<String> get tickerItems => [
+    'شكراً لمتابعتكم هذه النشرة',
+    'يمكن العودة إلى اللوحة الرئيسية لاختيار أي فقرة مرة أخرى',
+    _repository.getHomeTickerItems().first,
+  ];
 
   List<String> get closingNotes => const [
-    'The bulletin closes with a concise recap and a handoff to tomorrow\'s file.',
-    'Classic presentation is preserved through restrained colors and formal typography.',
-    'The dashboard remains the central navigation layer for the full programme.',
+    'ختام هادئ يترك مساحة بصرية نظيفة لشعار البرنامج ورسالة الشكر.',
+    'زر العودة يعيد المستخدم مباشرة إلى لوحة التحكم الرئيسية عبر GetX.',
+    'الواجهة مصممة لتكون مناسبة لنهاية نشرة رسمية أو فقرة أخيرة داخل التطبيق.',
   ];
 
   void backToDashboard() {
