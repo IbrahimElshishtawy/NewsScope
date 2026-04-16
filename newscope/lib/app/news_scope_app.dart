@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newscope/app/app_binding.dart';
 import 'package:newscope/routes/app_pages.dart';
-import 'package:newscope/routes/app_routes.dart';
 import 'package:newscope/themes/app_theme.dart';
 
 class NewsScopeApp extends StatelessWidget {
@@ -14,7 +13,7 @@ class NewsScopeApp extends StatelessWidget {
       title: 'NewsScope',
       debugShowCheckedModeBanner: false,
       initialBinding: AppBinding(),
-      initialRoute: AppRoutes.splash,
+      initialRoute: AppPages.initial,
       getPages: AppPages.routes,
       theme: AppTheme.lightTheme,
     );

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:newscope/core/constants/section_keys.dart';
 import 'package:newscope/core/responsive/responsive_layout.dart';
 import 'package:newscope/data/models/broadcast_section.dart';
+import 'package:newscope/data/models/program_metric.dart';
 import 'package:newscope/shared/widgets/broadcast_section_sidebar.dart';
 import 'package:newscope/shared/widgets/custom_news_card.dart';
 import 'package:newscope/shared/widgets/custom_section_title.dart';
 import 'package:newscope/shared/widgets/custom_stat_box.dart';
+import 'package:newscope/shared/widgets/custom_weather_card.dart';
 import 'package:newscope/shared/widgets/program_shell.dart';
 import 'package:newscope/themes/app_colors.dart';
 import 'package:newscope/themes/app_text_styles.dart';
@@ -33,7 +36,9 @@ class BroadcastSectionPage extends StatelessWidget {
             ),
             child: Text(
               section.bulletinLabel.toUpperCase(),
-              style: AppTextStyles.meta.copyWith(color: AppColors.paperWhite),
+              style: AppTextStyles.caption.copyWith(
+                color: AppColors.paperWhite,
+              ),
             ),
           ),
           SizedBox(height: gap),
@@ -108,17 +113,51 @@ class BroadcastSectionPage extends StatelessWidget {
           const CustomSectionTitle(
             title: 'Key Indicators',
             subtitle: 'Reference points prepared for the on-air presenter.',
+            eyebrow: 'Data Wall',
           ),
           const SizedBox(height: 16),
           Wrap(
             spacing: 16,
             runSpacing: 16,
-            children: section.highlights
-                .map((metric) => CustomStatBox(metric: metric))
-                .toList(),
+            children: _buildIndicators(section),
           ),
         ],
       ),
     );
+  }
+
+  List<Widget> _buildIndicators(BroadcastSection section) {
+    if (section.key == SectionKeys.weather) {
+      return section.highlights
+          .map(
+            (metric) => CustomWeatherCard(
+              label: metric.label,
+              value: metric.value,
+              details: metric.caption,
+              icon: _weatherIcon(metric),
+            ),
+          )
+          .toList();
+    }
+
+    return section.highlights
+        .map((metric) => CustomStatBox(metric: metric))
+        .toList();
+  }
+
+  IconData _weatherIcon(ProgramMetric metric) {
+    final label = metric.label.toLowerCase();
+
+    if (label.contains('wind')) {
+      return Icons.air_outlined;
+    }
+    if (label.contains('alert')) {
+      return Icons.warning_amber_outlined;
+    }
+    if (label.contains('high') || label.contains('temp')) {
+      return Icons.thermostat_outlined;
+    }
+
+    return Icons.wb_sunny_outlined;
   }
 }

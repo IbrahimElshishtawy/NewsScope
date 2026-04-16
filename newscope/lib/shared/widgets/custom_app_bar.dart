@@ -24,15 +24,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       automaticallyImplyLeading: false,
-      toolbarHeight: 82,
-      titleSpacing: 18,
+      toolbarHeight: 88,
+      titleSpacing: 20,
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             'NEWSSCOPE',
-            style: AppTextStyles.meta.copyWith(color: AppColors.softGray),
+            style: AppTextStyles.caption.copyWith(color: AppColors.softGray),
           ),
           const SizedBox(height: 4),
           Text(
@@ -46,10 +46,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               subtitle!,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: AppTextStyles.body.copyWith(
+              style: AppTextStyles.caption.copyWith(
                 color: AppColors.softGray,
                 fontSize: 14,
-                height: 1.2,
               ),
             ),
         ],
@@ -76,5 +75,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(88);
+  Size get preferredSize => const Size.fromHeight(94);
 }

@@ -31,82 +31,98 @@ import 'package:newscope/modules/weather/bindings/weather_binding.dart';
 import 'package:newscope/modules/weather/views/weather_view.dart';
 import 'package:newscope/routes/app_routes.dart';
 
-class AppPages {
+abstract final class AppPages {
+  static const initial = AppRoutes.splash;
+
   static final routes = <GetPage<dynamic>>[
-    GetPage(
+    _route(
       name: AppRoutes.splash,
       page: () => const SplashView(),
       binding: SplashBinding(),
     ),
-    GetPage(
+    _route(
       name: AppRoutes.intro,
       page: () => const IntroView(),
       binding: IntroBinding(),
     ),
-    GetPage(
+    _route(
       name: AppRoutes.home,
       page: () => const HomeView(),
       binding: HomeBinding(),
     ),
-    GetPage(
+    _route(
       name: AppRoutes.headlines,
       page: () => const HeadlinesView(),
       binding: HeadlinesBinding(),
     ),
-    GetPage(
+    _route(
       name: AppRoutes.mainNews,
       page: () => const MainNewsView(),
       binding: MainNewsBinding(),
     ),
-    GetPage(
+    _route(
       name: AppRoutes.report,
       page: () => const ReportView(),
       binding: ReportBinding(),
     ),
-    GetPage(
+    _route(
       name: AppRoutes.quotes,
       page: () => const QuotesView(),
       binding: QuotesBinding(),
     ),
-    GetPage(
+    _route(
       name: AppRoutes.localNews,
       page: () => const LocalNewsView(),
       binding: LocalNewsBinding(),
     ),
-    GetPage(
+    _route(
       name: AppRoutes.arabNews,
       page: () => const ArabNewsView(),
       binding: ArabNewsBinding(),
     ),
-    GetPage(
+    _route(
       name: AppRoutes.internationalNews,
       page: () => const InternationalNewsView(),
       binding: InternationalNewsBinding(),
     ),
-    GetPage(
+    _route(
       name: AppRoutes.economy,
       page: () => const EconomyView(),
       binding: EconomyBinding(),
     ),
-    GetPage(
+    _route(
       name: AppRoutes.breakingNews,
       page: () => const BreakingNewsView(),
       binding: BreakingNewsBinding(),
     ),
-    GetPage(
+    _route(
       name: AppRoutes.sports,
       page: () => const SportsView(),
       binding: SportsBinding(),
     ),
-    GetPage(
+    _route(
       name: AppRoutes.weather,
       page: () => const WeatherView(),
       binding: WeatherBinding(),
     ),
-    GetPage(
+    _route(
       name: AppRoutes.outro,
       page: () => const OutroView(),
       binding: OutroBinding(),
     ),
   ];
+
+  static GetPage<dynamic> _route({
+    required String name,
+    required GetPageBuilder page,
+    required Bindings binding,
+  }) {
+    return GetPage<dynamic>(
+      name: name,
+      page: page,
+      binding: binding,
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 220),
+    );
+  }
 }

@@ -23,12 +23,12 @@ class CustomNewsCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.paperWhite,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.softGray),
+        border: Border.all(color: AppColors.borderGray),
         boxShadow: const [
           BoxShadow(
-            color: Color(0x12000000),
-            blurRadius: 20,
-            offset: Offset(0, 8),
+            color: AppColors.shadow,
+            blurRadius: 18,
+            offset: Offset(0, 10),
           ),
         ],
       ),
@@ -52,14 +52,14 @@ class CustomNewsCard extends StatelessWidget {
                 ),
                 child: Text(
                   story.focus,
-                  style: AppTextStyles.meta.copyWith(
+                  style: AppTextStyles.caption.copyWith(
                     color: featured
                         ? AppColors.paperWhite
                         : AppColors.studioBlue,
                   ),
                 ),
               ),
-              Text(story.category, style: AppTextStyles.meta),
+              Text(story.category, style: AppTextStyles.caption),
             ],
           ),
           const SizedBox(height: 14),

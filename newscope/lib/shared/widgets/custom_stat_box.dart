@@ -12,16 +12,25 @@ class CustomStatBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 220,
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.paperWhite,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColors.softGray),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: AppColors.borderGray),
+        boxShadow: const [
+          BoxShadow(
+            color: AppColors.shadow,
+            blurRadius: 16,
+            offset: Offset(0, 8),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(metric.label, style: AppTextStyles.meta),
+          Container(width: 44, height: 4, color: AppColors.broadcastRed),
+          const SizedBox(height: 14),
+          Text(metric.label, style: AppTextStyles.caption),
           const SizedBox(height: 10),
           Text(
             metric.value,
@@ -31,7 +40,13 @@ class CustomStatBox extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Text(metric.caption, style: AppTextStyles.body),
+          Text(
+            metric.caption,
+            style: AppTextStyles.body.copyWith(
+              fontSize: 15,
+              color: AppColors.steelGray,
+            ),
+          ),
         ],
       ),
     );

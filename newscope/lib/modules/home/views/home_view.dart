@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newscope/core/responsive/responsive_layout.dart';
 import 'package:newscope/modules/home/controllers/home_controller.dart';
+import 'package:newscope/shared/widgets/custom_nav_card.dart';
 import 'package:newscope/shared/widgets/custom_news_card.dart';
 import 'package:newscope/shared/widgets/custom_section_title.dart';
 import 'package:newscope/shared/widgets/custom_stat_box.dart';
-import 'package:newscope/shared/widgets/dashboard_nav_card.dart';
 import 'package:newscope/shared/widgets/program_shell.dart';
 import 'package:newscope/themes/app_colors.dart';
 import 'package:newscope/themes/app_text_styles.dart';
@@ -54,8 +54,8 @@ class HomeView extends GetView<HomeController> {
                 ),
                 const SizedBox(height: 18),
                 Text(
-                  '${controller.editorialQuote.speaker} • ${controller.editorialQuote.role}',
-                  style: AppTextStyles.meta.copyWith(
+                  '${controller.editorialQuote.speaker} | ${controller.editorialQuote.role}',
+                  style: AppTextStyles.caption.copyWith(
                     color: AppColors.paperWhite,
                   ),
                 ),
@@ -67,6 +67,7 @@ class HomeView extends GetView<HomeController> {
             title: 'Programme Line-Up',
             subtitle:
                 'Every requested page is linked here through named GetX routes.',
+            eyebrow: 'Routing',
           ),
           const SizedBox(height: 16),
           LayoutBuilder(
@@ -84,7 +85,7 @@ class HomeView extends GetView<HomeController> {
                       (destination) => SizedBox(
                         width: cardWidth,
                         height: 240,
-                        child: DashboardNavCard(
+                        child: CustomNavCard(
                           destination: destination,
                           onTap: () => controller.openRoute(destination.route),
                         ),
@@ -99,6 +100,7 @@ class HomeView extends GetView<HomeController> {
             title: 'Featured Desk Briefs',
             subtitle:
                 'Selected placeholder stories that shape the dashboard tone.',
+            eyebrow: 'Lead Items',
           ),
           const SizedBox(height: 16),
           for (final story in controller.featuredStories) ...[
@@ -110,6 +112,7 @@ class HomeView extends GetView<HomeController> {
             title: 'Control Room Metrics',
             subtitle:
                 'Static briefing values shown in a broadcast-style layout.',
+            eyebrow: 'Overview',
           ),
           const SizedBox(height: 16),
           Wrap(

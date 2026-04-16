@@ -28,7 +28,9 @@ class CustomTicker extends StatelessWidget {
             ),
             child: Text(
               'LIVE DESK',
-              style: AppTextStyles.meta.copyWith(color: AppColors.paperWhite),
+              style: AppTextStyles.caption.copyWith(
+                color: AppColors.paperWhite,
+              ),
             ),
           ),
           Expanded(
@@ -37,13 +39,7 @@ class CustomTicker extends StatelessWidget {
               child: Row(
                 children: [
                   for (final item in items) ...[
-                    Text(
-                      item,
-                      style: AppTextStyles.body.copyWith(
-                        color: AppColors.paperWhite,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    Text(item, style: AppTextStyles.ticker),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 12),
                       child: Icon(

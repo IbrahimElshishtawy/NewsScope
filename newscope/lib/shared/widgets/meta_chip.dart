@@ -15,7 +15,7 @@ class MetaChip extends StatelessWidget {
       children: [
         Icon(icon, size: 15, color: AppColors.steelGray),
         const SizedBox(width: 6),
-        Text(label, style: AppTextStyles.meta),
+        Text(label, style: AppTextStyles.caption),
       ],
     );
   }
