@@ -15,8 +15,8 @@ class BreakingNewsView extends GetView<BreakingNewsController> {
     final stories = [section.leadStory, ...section.sideStories];
 
     return ProgramShell(
-      title: 'Breaking News',
-      subtitle: 'Urgent but controlled layout for verified live coverage',
+      title: 'الأخبار العاجلة',
+      subtitle: 'تصميم سريع ومنضبط للتغطية المباشرة المؤكدة.',
       tickerItems: section.tickerItems,
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -32,7 +32,7 @@ class BreakingNewsView extends GetView<BreakingNewsController> {
                 anchorNote: section.quote.quote,
               ),
               const SizedBox(height: 18),
-              Text('Live updates', style: AppTextStyles.sectionTitle),
+              Text('التحديثات المباشرة', style: AppTextStyles.sectionTitle),
               const SizedBox(height: 14),
               Column(
                 children: [
@@ -81,7 +81,7 @@ class BreakingNewsView extends GetView<BreakingNewsController> {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              'URGENT UPDATE  |  Breaking desk is publishing verified lines only',
+              'تحديث عاجل | يتم بث السطور المؤكدة فقط بعد التحقق',
               style: AppTextStyles.bodyStrong.copyWith(
                 color: AppColors.paperWhite,
               ),
@@ -128,7 +128,7 @@ class BreakingNewsView extends GetView<BreakingNewsController> {
               borderRadius: BorderRadius.circular(18),
             ),
             child: Text(
-              'Anchor summary: $anchorNote',
+              'ملخص المذيع: $anchorNote',
               style: AppTextStyles.body.copyWith(color: AppColors.paperWhite),
             ),
           ),
@@ -199,7 +199,7 @@ Widget _buildBreakingPanel(List<String> agenda) {
             borderRadius: BorderRadius.circular(14),
           ),
           child: Text(
-            'Breaking ticker priorities',
+            'أولويات الشريط العاجل',
             style: AppTextStyles.bodyStrong.copyWith(
               color: AppColors.paperWhite,
             ),

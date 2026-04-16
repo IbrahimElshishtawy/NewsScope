@@ -17,7 +17,7 @@ class ArabNewsView extends GetView<ArabNewsController> {
 
     return ProgramShell(
       title: 'أخبار عربية',
-      subtitle: 'Regional political coverage with a formal editorial tone',
+      subtitle: 'تغطية إقليمية بصياغة عربية رسمية متسقة مع هوية النشرة.',
       tickerItems: section.tickerItems,
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -61,7 +61,7 @@ class ArabNewsView extends GetView<ArabNewsController> {
               ),
               const SizedBox(height: 24),
               Text(
-                'Featured regional stories',
+                'أبرز القصص الإقليمية',
                 style: AppTextStyles.sectionTitle,
               ),
               const SizedBox(height: 14),
@@ -73,7 +73,7 @@ class ArabNewsView extends GetView<ArabNewsController> {
                     .toList(),
               ),
               const SizedBox(height: 24),
-              Text('Analysis cards', style: AppTextStyles.sectionTitle),
+              Text('بطاقات التحليل', style: AppTextStyles.sectionTitle),
               const SizedBox(height: 14),
               Wrap(
                 spacing: 18,
@@ -112,7 +112,7 @@ class ArabNewsView extends GetView<ArabNewsController> {
             top: 18,
             left: 18,
             child: Text(
-              'Regional map / symbolic placeholder',
+              'خريطة إقليمية رمزية',
               style: AppTextStyles.caption.copyWith(
                 color: AppColors.paperWhite,
               ),

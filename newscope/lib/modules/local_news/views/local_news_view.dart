@@ -16,7 +16,7 @@ class LocalNewsView extends GetView<LocalNewsController> {
 
     return ProgramShell(
       title: 'أخبار محلية',
-      subtitle: 'Official local coverage with clear civic impact',
+      subtitle: 'تغطية محلية رسمية تركز على الأثر الخدمي والتنمية اليومية.',
       tickerItems: section.tickerItems,
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -30,7 +30,7 @@ class LocalNewsView extends GetView<LocalNewsController> {
                 section.leadStory.location,
               ),
               const SizedBox(height: 24),
-              Text('Local bulletin', style: AppTextStyles.sectionTitle),
+              Text('النشرة المحلية', style: AppTextStyles.sectionTitle),
               const SizedBox(height: 14),
               Column(
                 children: [
@@ -112,7 +112,7 @@ class LocalNewsView extends GetView<LocalNewsController> {
                         borderRadius: BorderRadius.circular(999),
                       ),
                       child: Text(
-                        'Government building / city placeholder',
+                        'صورة بانورامية للمحافظة',
                         style: AppTextStyles.caption.copyWith(
                           color: AppColors.paperWhite,
                         ),
@@ -147,7 +147,7 @@ Widget _buildSideInfoPanel({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Local Desk Notes',
+          'ملاحظات المكتب المحلي',
           style: AppTextStyles.sectionTitle.copyWith(
             color: AppColors.paperWhite,
           ),
@@ -166,7 +166,7 @@ Widget _buildSideInfoPanel({
         const Divider(color: AppColors.paperWhite),
         const SizedBox(height: 12),
         Text(
-          'Editorial focus',
+          'التركيز التحريري',
           style: AppTextStyles.bodyStrong.copyWith(color: AppColors.paperWhite),
         ),
         const SizedBox(height: 10),

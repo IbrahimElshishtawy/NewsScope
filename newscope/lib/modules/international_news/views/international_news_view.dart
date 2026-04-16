@@ -17,7 +17,7 @@ class InternationalNewsView extends GetView<InternationalNewsController> {
 
     return ProgramShell(
       title: 'أخبار دولية',
-      subtitle: 'Global newsroom layout with headlines and live desk stats',
+      subtitle: 'جولة عالمية بعناوين رئيسية ومؤشرات سريعة من مكاتب المتابعة.',
       tickerItems: section.tickerItems,
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -27,7 +27,7 @@ class InternationalNewsView extends GetView<InternationalNewsController> {
             children: [
               _buildWorldMapBanner(),
               const SizedBox(height: 24),
-              Text('Global headlines', style: AppTextStyles.sectionTitle),
+              Text('العناوين الدولية', style: AppTextStyles.sectionTitle),
               const SizedBox(height: 14),
               Column(
                 children: [
@@ -109,7 +109,7 @@ class InternationalNewsView extends GetView<InternationalNewsController> {
               left: 18,
               top: 18,
               child: Text(
-                'World map background / placeholder',
+                'خلفية خريطة العالم',
                 style: AppTextStyles.caption.copyWith(
                   color: AppColors.paperWhite,
                 ),
@@ -175,7 +175,7 @@ Widget _buildStatsPanel(List<ProgramMetric> metrics, List<String> updates) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Quick stats', style: AppTextStyles.sectionTitle),
+        Text('مؤشرات سريعة', style: AppTextStyles.sectionTitle),
         const SizedBox(height: 14),
         ...metrics.map(
           (metric) => Padding(
@@ -200,7 +200,7 @@ Widget _buildStatsPanel(List<ProgramMetric> metrics, List<String> updates) {
           ),
         ),
         const SizedBox(height: 6),
-        Text('Desk updates', style: AppTextStyles.bodyStrong),
+        Text('تحديثات المكاتب', style: AppTextStyles.bodyStrong),
         const SizedBox(height: 10),
         ...updates
             .take(3)
