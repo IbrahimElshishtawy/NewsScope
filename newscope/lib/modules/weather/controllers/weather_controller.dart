@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:newscope/app/data/models/weather_model.dart';
 import 'package:newscope/core/constants/section_keys.dart';
 import 'package:newscope/core/controllers/broadcast_section_controller.dart';
 import 'package:newscope/data/models/program_metric.dart';
+import 'package:newscope/data/repositories/news_content_repository.dart';
 
 class WeatherController extends BroadcastSectionController {
-  WeatherController({required super.repository})
-    : super(sectionKey: SectionKeys.weather);
+  WeatherController({required NewsContentRepository repository})
+    : _repository = repository,
+      super(repository: repository, sectionKey: SectionKeys.weather);
+
+  final NewsContentRepository _repository;
 
   String get title => 'الطقس';
 
-  String get warningBanner =>
-      'تنبيه: رياح نشطة وانخفاض متوقع في الرؤية على بعض الطرق المفتوحة خلال ساعات المساء.';
+  String get warningBanner => weatherItems
+      .firstWhere((item) => item.warning != null, orElse: () => weatherItems[0])
+      .warning ??
+      'لا توجد تحذيرات جوية خاصة في التحديث الحالي.';
 
   List<ProgramMetric> get weatherStats => section.highlights;
+
+  List<WeatherModel> get weatherItems => _repository.getWeatherItems();
 
   List<
     ({
@@ -23,34 +32,33 @@ class WeatherController extends BroadcastSectionController {
       IconData icon,
     })
   >
-  get cityForecasts => const [
-    (
-      city: 'القاهرة',
-      temperature: '29°',
-      range: '24° / 29°',
-      condition: 'مشمس جزئياً',
-      icon: Icons.wb_sunny_outlined,
-    ),
-    (
-      city: 'الإسكندرية',
-      temperature: '25°',
-      range: '21° / 25°',
-      condition: 'رياح معتدلة',
-      icon: Icons.air_rounded,
-    ),
-    (
-      city: 'أسوان',
-      temperature: '34°',
-      range: '27° / 34°',
-      condition: 'أجواء حارة',
-      icon: Icons.thermostat_rounded,
-    ),
-    (
-      city: 'مطروح',
-      temperature: '23°',
-      range: '19° / 23°',
-      condition: 'سحب خفيفة',
-      icon: Icons.cloud_outlined,
-    ),
-  ];
+  get cityForecasts => weatherItems
+      .map(
+        (forecast) => (
+          city: forecast.city,
+          temperature: '${forecast.temperature}°',
+          range: '${forecast.low}° / ${forecast.high}°',
+          condition: forecast.condition,
+          icon: _iconForCode(forecast.iconCode),
+        ),
+      )
+      .toList(growable: false);
+
+  IconData _iconForCode(String iconCode) {
+    switch (iconCode) {
+      case 'windy':
+        return Icons.air_rounded;
+      case 'dust':
+        return Icons.warning_amber_rounded;
+      case 'hot':
+        return Icons.thermostat_rounded;
+      case 'cloudy':
+        return Icons.cloud_outlined;
+      case 'clear':
+        return Icons.nights_stay_outlined;
+      case 'sunny':
+      default:
+        return Icons.wb_sunny_outlined;
+    }
+  }
 }

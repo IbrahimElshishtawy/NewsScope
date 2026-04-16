@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:newscope/app/data/models/sports_model.dart';
 import 'package:newscope/core/constants/section_keys.dart';
 import 'package:newscope/core/controllers/broadcast_section_controller.dart';
 import 'package:newscope/data/models/program_metric.dart';
+import 'package:newscope/data/repositories/news_content_repository.dart';
 
 class SportsController extends BroadcastSectionController {
-  SportsController({required super.repository})
-    : super(sectionKey: SectionKeys.sports);
+  SportsController({required NewsContentRepository repository})
+    : _repository = repository,
+      super(repository: repository, sectionKey: SectionKeys.sports);
+
+  final NewsContentRepository _repository;
 
   String get title => 'الرياضة';
 
   List<ProgramMetric> get scoreBoxes => section.highlights;
+
+  List<SportsModel> get sportsItems => _repository.getSportsItems();
 
   List<
     ({
@@ -21,30 +28,30 @@ class SportsController extends BroadcastSectionController {
       IconData icon,
     })
   >
-  get matches => const [
-    (
-      competition: 'الدوري الممتاز',
-      homeTeam: 'الأهلي',
-      awayTeam: 'بيراميدز',
-      score: '2 - 1',
-      status: 'النهاية',
-      icon: Icons.sports_soccer_rounded,
-    ),
-    (
-      competition: 'كأس العاصمة',
-      homeTeam: 'الزمالك',
-      awayTeam: 'فيوتشر',
-      score: '1 - 1',
-      status: 'الشوط الثاني',
-      icon: Icons.emoji_events_outlined,
-    ),
-    (
-      competition: 'تصفيات قارية',
-      homeTeam: 'مصر',
-      awayTeam: 'تونس',
-      score: '3 - 0',
-      status: 'ملخص',
-      icon: Icons.public_outlined,
-    ),
-  ];
+  get matches => sportsItems
+      .map(
+        (match) => (
+          competition: match.competition,
+          homeTeam: match.homeTeam,
+          awayTeam: match.awayTeam,
+          score: match.result,
+          status: match.status,
+          icon: _iconForCompetition(match.competition),
+        ),
+      )
+      .toList(growable: false);
+
+  IconData _iconForCompetition(String competition) {
+    if (competition.contains('كرة اليد')) {
+      return Icons.sports_handball_rounded;
+    }
+    if (competition.contains('السلة')) {
+      return Icons.sports_basketball_rounded;
+    }
+    if (competition.contains('ودية')) {
+      return Icons.flag_outlined;
+    }
+
+    return Icons.sports_soccer_rounded;
+  }
 }
