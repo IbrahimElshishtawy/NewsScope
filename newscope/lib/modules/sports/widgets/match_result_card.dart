@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:newscope/app/widgets/custom_3d_badge.dart';
+import 'package:newscope/app/widgets/custom_3d_card.dart';
 import 'package:newscope/themes/app_colors.dart';
 import 'package:newscope/themes/app_text_styles.dart';
 
@@ -22,13 +24,7 @@ class MatchResultCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: AppColors.paperWhite,
-        borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: AppColors.borderGray),
-      ),
+    return Custom3dCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -47,21 +43,10 @@ class MatchResultCard extends StatelessWidget {
               Expanded(
                 child: Text(competition, style: AppTextStyles.bodyStrong),
               ),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(999),
-                  color: AppColors.broadcastRed.withValues(alpha: 0.12),
-                ),
-                child: Text(
-                  status,
-                  style: AppTextStyles.caption.copyWith(
-                    color: AppColors.broadcastRed,
-                  ),
-                ),
+              Custom3dBadge(
+                label: status,
+                backgroundColor: AppColors.broadcastRed.withValues(alpha: 0.12),
+                foregroundColor: AppColors.broadcastRed,
               ),
             ],
           ),

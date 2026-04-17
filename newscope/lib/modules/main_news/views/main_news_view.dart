@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:newscope/app/data/models/main_news_model.dart';
-import 'package:newscope/data/models/program_metric.dart';
+import 'package:newscope/app/theme/app_3d_styles.dart';
+import 'package:newscope/app/widgets/custom_3d_badge.dart';
+import 'package:newscope/app/widgets/custom_3d_media_frame.dart';
+import 'package:newscope/app/widgets/custom_3d_quote_box.dart';
+import 'package:newscope/app/widgets/custom_3d_reveal.dart';
+import 'package:newscope/app/widgets/custom_3d_section_header.dart';
+import 'package:newscope/app/widgets/custom_3d_stat_box.dart';
 import 'package:newscope/data/models/program_story.dart';
 import 'package:newscope/modules/main_news/controllers/main_news_controller.dart';
 import 'package:newscope/shared/widgets/program_shell.dart';
@@ -19,84 +24,136 @@ class MainNewsView extends GetView<MainNewsController> {
 
     return ProgramShell(
       title: mainNews.category,
-      subtitle: 'الملف الأبرز في نشرة الليلة بصياغة تفصيلية واضحة.',
+      subtitle: 'الملف الأبرز داخل مشهد بصري مرتفع الطبقات',
       tickerItems: section.tickerItems,
       body: LayoutBuilder(
         builder: (context, constraints) {
-          final isWide = constraints.maxWidth >= 980;
+          final isWide = constraints.maxWidth >= 1040;
+
+          final hero = Container(
+            width: double.infinity,
+            decoration: App3dStyles.panelDecoration(
+              tone: App3dTone.dark,
+              radius: 32,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: isWide
+                  ? Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 11,
+                          child: _HeroCopy(
+                            story: leadStory,
+                            bulletPoints: mainNews.bulletPoints,
+                          ),
+                        ),
+                        const SizedBox(width: 22),
+                        Expanded(
+                          flex: 9,
+                          child: Custom3dMediaFrame(
+                            title: 'إطار القصة الرئيسية',
+                            subtitle: leadStory.summary,
+                            icon: Icons.perm_media_outlined,
+                            badge: 'العنوان الأبرز',
+                            footer: 'المتابعة من ${leadStory.location}',
+                            tone: App3dTone.surface,
+                          ),
+                        ),
+                      ],
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _HeroCopy(
+                          story: leadStory,
+                          bulletPoints: mainNews.bulletPoints,
+                        ),
+                        const SizedBox(height: 20),
+                        Custom3dMediaFrame(
+                          title: 'إطار القصة الرئيسية',
+                          subtitle: leadStory.summary,
+                          icon: Icons.perm_media_outlined,
+                          badge: 'العنوان الأبرز',
+                          footer: 'المتابعة من ${leadStory.location}',
+                          tone: App3dTone.surface,
+                        ),
+                      ],
+                    ),
+            ),
+          );
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [AppColors.midnightBlue, AppColors.studioBlue],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(30),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: AppColors.shadow,
-                      blurRadius: 24,
-                      offset: Offset(0, 14),
+              Custom3dReveal(child: hero),
+              const SizedBox(height: 24),
+              Custom3dReveal(
+                delay: const Duration(milliseconds: 80),
+                child: const Custom3dSectionHeader(
+                  eyebrow: 'لوحة المؤشرات',
+                  title: 'مؤشرات الملف الرئيسي',
+                  subtitle:
+                      'بطاقات مرتفعة تبرز أبعاد المتابعة التنفيذية والزمنية داخل الخبر الأبرز.',
+                ),
+              ),
+              const SizedBox(height: 16),
+              Wrap(
+                spacing: 16,
+                runSpacing: 16,
+                children: [
+                  for (var index = 0; index < section.highlights.length; index++)
+                    Custom3dReveal(
+                      delay: Duration(milliseconds: 120 + (index * 40)),
+                      child: Custom3dStatBox(
+                        label: section.highlights[index].label,
+                        value: section.highlights[index].value,
+                        caption: section.highlights[index].caption,
+                        tone: index == 1 ? App3dTone.dark : App3dTone.surface,
+                        icon: index == 0
+                            ? Icons.track_changes_outlined
+                            : index == 1
+                                ? Icons.timer_outlined
+                                : Icons.account_tree_outlined,
+                      ),
                     ),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(28),
-                  child: isWide
-                      ? Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              flex: 11,
-                              child: _buildHeroCopy(
-                                story: leadStory,
-                                mainNews: mainNews,
-                              ),
-                            ),
-                            const SizedBox(width: 24),
-                            Expanded(
-                              flex: 9,
-                              child: _buildHeroMedia(
-                                story: leadStory,
-                                imageUrl: mainNews.imageUrl,
-                              ),
-                            ),
-                          ],
-                        )
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _buildHeroCopy(story: leadStory, mainNews: mainNews),
-                            const SizedBox(height: 20),
-                            _buildHeroMedia(
-                              story: leadStory,
-                              imageUrl: mainNews.imageUrl,
-                            ),
-                          ],
-                        ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              Custom3dReveal(
+                delay: const Duration(milliseconds: 180),
+                child: Custom3dQuoteBox(
+                  quote: section.quote.quote,
+                  speaker: section.quote.speaker,
+                  role: section.quote.role,
+                  tone: App3dTone.glass,
                 ),
               ),
               const SizedBox(height: 24),
-              Wrap(
-                spacing: 18,
-                runSpacing: 18,
-                children: section.highlights
-                    .map((metric) => _buildMetricPanel(metric))
-                    .toList(),
+              Custom3dReveal(
+                delay: const Duration(milliseconds: 220),
+                child: const Custom3dSectionHeader(
+                  eyebrow: 'مسارات مساندة',
+                  title: 'التغطية المتفرعة',
+                  subtitle:
+                      'قصص دعم مرتبة كبطاقات معلقة لإبراز الامتدادات التحريرية للملف الرئيسي.',
+                ),
               ),
-              const SizedBox(height: 24),
-              Text('مسارات التغطية المساندة', style: AppTextStyles.sectionTitle),
-              const SizedBox(height: 14),
+              const SizedBox(height: 16),
               Wrap(
-                spacing: 18,
-                runSpacing: 18,
-                children: section.sideStories
-                    .map((story) => _buildSupportingStoryCard(story))
-                    .toList(),
+                spacing: 16,
+                runSpacing: 16,
+                children: [
+                  for (var index = 0; index < section.sideStories.length; index++)
+                    SizedBox(
+                      width: 360,
+                      child: Custom3dReveal(
+                        delay: Duration(milliseconds: 260 + (index * 40)),
+                        child: _SupportingStoryCard(story: section.sideStories[index]),
+                      ),
+                    ),
+                ],
               ),
             ],
           );
@@ -104,11 +161,19 @@ class MainNewsView extends GetView<MainNewsController> {
       ),
     );
   }
+}
 
-  Widget _buildHeroCopy({
-    required ProgramStory story,
-    required MainNewsModel mainNews,
-  }) {
+class _HeroCopy extends StatelessWidget {
+  const _HeroCopy({
+    required this.story,
+    required this.bulletPoints,
+  });
+
+  final ProgramStory story;
+  final List<String> bulletPoints;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -116,71 +181,62 @@ class MainNewsView extends GetView<MainNewsController> {
           spacing: 10,
           runSpacing: 10,
           children: [
-            _buildLabel(
-              'الملف الأبرز',
-              background: AppColors.broadcastRed,
-              foreground: AppColors.paperWhite,
+            const Custom3dBadge(
+              label: 'الملف الأبرز',
+              icon: Icons.campaign_outlined,
+              backgroundColor: Color(0x22FFFFFF),
+              foregroundColor: AppColors.paperWhite,
             ),
-            _buildLabel(
-              story.category,
-              background: AppColors.paperWhite.withValues(alpha: 0.12),
-              foreground: AppColors.paperWhite,
+            Custom3dBadge(
+              label: story.category,
+              backgroundColor: Colors.white.withValues(alpha: 0.08),
+              foregroundColor: AppColors.paperWhite,
             ),
-            _buildLabel(
-              story.timeLabel,
-              background: AppColors.paperWhite.withValues(alpha: 0.12),
-              foreground: AppColors.paperWhite,
+            Custom3dBadge(
+              label: story.timeLabel,
+              backgroundColor: Colors.white.withValues(alpha: 0.08),
+              foregroundColor: AppColors.paperWhite,
             ),
           ],
         ),
         const SizedBox(height: 18),
         Text(
-          'العنوان الرئيسي في هذه النشرة',
-          style: AppTextStyles.caption.copyWith(
-            color: AppColors.softGray,
-            letterSpacing: 1.2,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Text(
           story.title,
           style: AppTextStyles.pageTitle.copyWith(
             color: AppColors.paperWhite,
-            fontSize: 34,
-            height: 1.2,
+            fontSize: 36,
+            height: 1.3,
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 14),
         Text(
           story.summary,
           style: AppTextStyles.body.copyWith(
-            color: AppColors.paperWhite.withValues(alpha: 0.9),
-            fontSize: 18,
+            color: AppColors.softGray,
+            fontSize: 17,
           ),
         ),
-        const SizedBox(height: 22),
+        const SizedBox(height: 18),
         Container(
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
-            color: AppColors.paperWhite.withValues(alpha: 0.08),
-            borderRadius: BorderRadius.circular(22),
-            border: Border.all(
-              color: AppColors.paperWhite.withValues(alpha: 0.12),
-            ),
+            borderRadius: BorderRadius.circular(24),
+            color: Colors.white.withValues(alpha: 0.06),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'نقاط المتابعة الرئيسية',
+                'نقاط المتابعة الأساسية',
                 style: AppTextStyles.bodyStrong.copyWith(
                   color: AppColors.paperWhite,
                 ),
               ),
-              const SizedBox(height: 12),
-              for (final item in mainNews.bulletPoints)
+              const SizedBox(height: 14),
+              for (final item in bulletPoints)
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.only(bottom: 12),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -188,7 +244,7 @@ class MainNewsView extends GetView<MainNewsController> {
                         padding: EdgeInsets.only(top: 6),
                         child: Icon(
                           Icons.circle,
-                          size: 7,
+                          size: 8,
                           color: AppColors.broadcastRed,
                         ),
                       ),
@@ -197,7 +253,7 @@ class MainNewsView extends GetView<MainNewsController> {
                         child: Text(
                           item,
                           style: AppTextStyles.body.copyWith(
-                            color: AppColors.paperWhite.withValues(alpha: 0.9),
+                            color: AppColors.paperWhite,
                           ),
                         ),
                       ),
@@ -210,170 +266,47 @@ class MainNewsView extends GetView<MainNewsController> {
       ],
     );
   }
+}
 
-  Widget _buildHeroMedia({
-    required ProgramStory story,
-    required String imageUrl,
-  }) {
+class _SupportingStoryCard extends StatelessWidget {
+  const _SupportingStoryCard({required this.story});
+
+  final ProgramStory story;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(minHeight: 340),
-      padding: const EdgeInsets.all(22),
-      decoration: BoxDecoration(
-        color: AppColors.paperWhite,
-        borderRadius: BorderRadius.circular(28),
+      padding: const EdgeInsets.all(20),
+      decoration: App3dStyles.panelDecoration(
+        tone: App3dTone.surface,
+        radius: 26,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AspectRatio(
-            aspectRatio: 16 / 10,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFFCFD6E0), Color(0xFFEEF1F6)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-                borderRadius: BorderRadius.circular(22),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              Custom3dBadge(
+                label: story.category,
+                backgroundColor: AppColors.broadcastRed.withValues(alpha: 0.10),
+                foregroundColor: AppColors.broadcastRed,
               ),
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(22),
-                        border: Border.all(color: AppColors.borderGray),
-                      ),
-                    ),
-                  ),
-                  const Positioned(
-                    top: 18,
-                    left: 18,
-                    child: Icon(
-                      Icons.play_circle_fill_outlined,
-                      color: AppColors.broadcastRed,
-                      size: 34,
-                    ),
-                  ),
-                  const Center(
-                    child: Icon(
-                      Icons.perm_media_outlined,
-                      size: 72,
-                      color: AppColors.steelGray,
-                    ),
-                  ),
-                  Positioned(
-                    right: 18,
-                    bottom: 18,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.midnightBlue,
-                        borderRadius: BorderRadius.circular(999),
-                      ),
-                      child: Text(
-                        'صورة رئيسية: $imageUrl',
-                        style: AppTextStyles.caption.copyWith(
-                          color: AppColors.paperWhite,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+              Custom3dBadge(label: story.timeLabel),
+            ],
           ),
-          const SizedBox(height: 18),
-          Text('المتابعة من ${story.location}', style: AppTextStyles.bodyStrong),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
+          Text(story.title, style: AppTextStyles.sectionTitle),
+          const SizedBox(height: 10),
+          Text(story.summary, style: AppTextStyles.body),
+          const SizedBox(height: 12),
           Text(
-            'تتولى ${story.reporter} تقديم هذا الملف مع تركيز واضح على ${story.focus}.',
-            style: AppTextStyles.body,
+            '${story.location} | ${story.reporter}',
+            style: AppTextStyles.caption,
           ),
         ],
       ),
     );
   }
-}
-
-Widget _buildSupportingStoryCard(ProgramStory story) {
-  return Container(
-    constraints: const BoxConstraints(minWidth: 280, maxWidth: 390),
-    padding: const EdgeInsets.all(20),
-    decoration: BoxDecoration(
-      color: AppColors.paperWhite,
-      borderRadius: BorderRadius.circular(24),
-      border: Border.all(color: AppColors.borderGray),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          story.category,
-          style: AppTextStyles.caption.copyWith(color: AppColors.broadcastRed),
-        ),
-        const SizedBox(height: 10),
-        Text(story.title, style: AppTextStyles.sectionTitle),
-        const SizedBox(height: 10),
-        Text(story.summary, style: AppTextStyles.body),
-        const SizedBox(height: 16),
-        Row(
-          children: [
-            const Icon(
-              Icons.location_on_outlined,
-              size: 18,
-              color: AppColors.steelGray,
-            ),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Text(
-                '${story.location}  |  ${story.timeLabel}',
-                style: AppTextStyles.caption,
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildMetricPanel(ProgramMetric metric) {
-  return Container(
-    width: 240,
-    padding: const EdgeInsets.all(20),
-    decoration: BoxDecoration(
-      color: AppColors.paperWhite,
-      borderRadius: BorderRadius.circular(22),
-      border: Border.all(color: AppColors.borderGray),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(metric.label, style: AppTextStyles.caption),
-        const SizedBox(height: 8),
-        Text(metric.value, style: AppTextStyles.headline),
-        const SizedBox(height: 8),
-        Text(metric.caption, style: AppTextStyles.body),
-      ],
-    ),
-  );
-}
-
-Widget _buildLabel(
-  String text, {
-  required Color background,
-  required Color foreground,
-}) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-    decoration: BoxDecoration(
-      color: background,
-      borderRadius: BorderRadius.circular(999),
-    ),
-    child: Text(text, style: AppTextStyles.caption.copyWith(color: foreground)),
-  );
 }

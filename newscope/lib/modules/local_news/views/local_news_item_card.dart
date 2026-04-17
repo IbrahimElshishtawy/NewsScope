@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:newscope/app/widgets/custom_3d_badge.dart';
+import 'package:newscope/app/widgets/custom_3d_card.dart';
 import 'package:newscope/data/models/program_story.dart';
 import 'package:newscope/themes/app_colors.dart';
 import 'package:newscope/themes/app_text_styles.dart';
@@ -15,25 +17,14 @@ class LocalNewsItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: AppColors.paperWhite,
-        borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: AppColors.borderGray),
-      ),
+    return Custom3dCard(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: 42,
-            height: 42,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: AppColors.broadcastRed,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text('$index', style: AppTextStyles.button),
+          Custom3dBadge(
+            label: '$index',
+            backgroundColor: AppColors.broadcastRed,
+            foregroundColor: AppColors.paperWhite,
           ),
           const SizedBox(width: 14),
           Expanded(

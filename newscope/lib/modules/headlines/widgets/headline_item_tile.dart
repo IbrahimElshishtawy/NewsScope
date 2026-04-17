@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:newscope/app/theme/app_3d_styles.dart';
+import 'package:newscope/app/widgets/custom_3d_badge.dart';
+import 'package:newscope/app/widgets/custom_3d_card.dart';
 import 'package:newscope/data/models/program_story.dart';
 import 'package:newscope/themes/app_colors.dart';
 import 'package:newscope/themes/app_text_styles.dart';
@@ -17,35 +20,19 @@ class HeadlineItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: isLead ? AppColors.ivory : AppColors.paperWhite,
-        border: Border.all(
-          color: isLead ? AppColors.broadcastRed : AppColors.borderGray,
-        ),
-      ),
+    return Custom3dCard(
+      tone: isLead ? App3dTone.dark : App3dTone.surface,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Container(
-                width: 38,
-                height: 38,
-                decoration: BoxDecoration(
-                  color: AppColors.midnightBlue,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Center(
-                  child: Text(
-                    indexLabel,
-                    style: AppTextStyles.caption.copyWith(
-                      color: AppColors.paperWhite,
-                    ),
-                  ),
-                ),
+              Custom3dBadge(
+                label: indexLabel,
+                backgroundColor: isLead
+                    ? Colors.white.withValues(alpha: 0.12)
+                    : AppColors.midnightBlue,
+                foregroundColor: AppColors.paperWhite,
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -62,13 +49,25 @@ class HeadlineItemTile extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          Text(story.title, style: AppTextStyles.headline),
+          Text(
+            story.title,
+            style: AppTextStyles.headline.copyWith(
+              color: isLead ? AppColors.paperWhite : null,
+            ),
+          ),
           const SizedBox(height: 10),
-          Text(story.summary, style: AppTextStyles.body),
+          Text(
+            story.summary,
+            style: AppTextStyles.body.copyWith(
+              color: isLead ? AppColors.softGray : null,
+            ),
+          ),
           const SizedBox(height: 12),
           Text(
             '${story.reporter}  |  ${story.focus}',
-            style: AppTextStyles.caption.copyWith(color: AppColors.steelGray),
+            style: AppTextStyles.caption.copyWith(
+              color: isLead ? AppColors.softGray : AppColors.steelGray,
+            ),
           ),
         ],
       ),
@@ -80,9 +79,16 @@ class HeadlineItemTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(999),
-        color: AppColors.midnightBlue.withValues(alpha: 0.06),
+        color: isLead
+            ? Colors.white.withValues(alpha: 0.08)
+            : AppColors.midnightBlue.withValues(alpha: 0.06),
       ),
-      child: Text(label, style: AppTextStyles.caption),
+      child: Text(
+        label,
+        style: AppTextStyles.caption.copyWith(
+          color: isLead ? AppColors.paperWhite : null,
+        ),
+      ),
     );
   }
 }

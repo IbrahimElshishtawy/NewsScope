@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newscope/app/theme/app_depth_tokens.dart';
 import 'package:newscope/themes/app_colors.dart';
 import 'package:newscope/themes/app_text_styles.dart';
 
@@ -25,7 +26,7 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
-      scaffoldBackgroundColor: AppColors.ivory,
+      scaffoldBackgroundColor: const Color(0xFF071527),
       textTheme: TextTheme(
         displayLarge: AppTextStyles.masthead,
         headlineLarge: AppTextStyles.pageTitle,
@@ -41,15 +42,15 @@ class AppTheme {
       iconTheme: const IconThemeData(color: AppColors.midnightBlue),
       cardTheme: CardThemeData(
         elevation: 0,
-        color: AppColors.paperWhite,
+        color: const Color(0xFFF5F7FB),
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(AppDepthTokens.radiusMd),
           side: const BorderSide(color: AppColors.borderGray),
         ),
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.studioBlue,
+        backgroundColor: Colors.transparent,
         foregroundColor: AppColors.paperWhite,
         centerTitle: false,
         elevation: 0,
@@ -67,7 +68,7 @@ class AppTheme {
           foregroundColor: AppColors.paperWhite,
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(AppDepthTokens.radiusSm),
           ),
           textStyle: AppTextStyles.button,
         ),
@@ -86,7 +87,7 @@ class AppTheme {
           side: const BorderSide(color: AppColors.studioBlue),
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(AppDepthTokens.radiusSm),
           ),
           textStyle: AppTextStyles.button,
         ),
@@ -94,7 +95,9 @@ class AppTheme {
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.midnightBlue.withValues(alpha: 0.06),
         side: const BorderSide(color: AppColors.borderGray),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppDepthTokens.radiusXl),
+        ),
         labelStyle: AppTextStyles.caption,
         selectedColor: AppColors.broadcastRed,
         secondarySelectedColor: AppColors.broadcastRed,
@@ -102,21 +105,21 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.paperWhite,
+        fillColor: const Color(0xFFF6F8FB),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 18,
           vertical: 16,
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(AppDepthTokens.radiusSm),
           borderSide: const BorderSide(color: AppColors.borderGray),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(AppDepthTokens.radiusSm),
           borderSide: const BorderSide(color: AppColors.borderGray),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(AppDepthTokens.radiusSm),
           borderSide: const BorderSide(
             color: AppColors.broadcastRed,
             width: 1.4,

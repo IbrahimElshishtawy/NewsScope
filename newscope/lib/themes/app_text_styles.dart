@@ -5,33 +5,33 @@ import 'package:newscope/themes/app_colors.dart';
 class AppTextStyles {
   const AppTextStyles._();
 
-  static TextStyle get masthead => GoogleFonts.libreBaskerville(
+  static TextStyle get masthead => GoogleFonts.notoNaskhArabic(
     fontSize: 34,
     fontWeight: FontWeight.w700,
-    height: 1.15,
-    letterSpacing: 0.8,
+    height: 1.2,
+    letterSpacing: 0.1,
     color: AppColors.paperWhite,
   );
 
-  static TextStyle get pageTitle => GoogleFonts.libreBaskerville(
+  static TextStyle get pageTitle => GoogleFonts.notoNaskhArabic(
     fontSize: 30,
     fontWeight: FontWeight.w700,
-    height: 1.2,
-    letterSpacing: 0.2,
+    height: 1.28,
+    letterSpacing: 0,
     color: AppColors.midnightBlue,
   );
 
-  static TextStyle get headline => GoogleFonts.libreBaskerville(
+  static TextStyle get headline => GoogleFonts.notoNaskhArabic(
     fontSize: 23,
     fontWeight: FontWeight.w700,
-    height: 1.32,
+    height: 1.35,
     color: AppColors.midnightBlue,
   );
 
   static TextStyle get sectionTitle =>
       headline.copyWith(fontSize: 21, letterSpacing: 0.15);
 
-  static TextStyle get body => GoogleFonts.sourceSans3(
+  static TextStyle get body => GoogleFonts.cairo(
     fontSize: 17,
     fontWeight: FontWeight.w400,
     height: 1.6,
@@ -41,29 +41,29 @@ class AppTextStyles {
   static TextStyle get bodyStrong =>
       body.copyWith(fontWeight: FontWeight.w600, color: AppColors.midnightBlue);
 
-  static TextStyle get ticker => GoogleFonts.sourceSans3(
+  static TextStyle get ticker => GoogleFonts.cairo(
     fontSize: 15,
     fontWeight: FontWeight.w700,
     height: 1.25,
-    letterSpacing: 0.9,
+    letterSpacing: 0.25,
     color: AppColors.paperWhite,
   );
 
-  static TextStyle get caption => GoogleFonts.sourceSans3(
+  static TextStyle get caption => GoogleFonts.cairo(
     fontSize: 13,
     fontWeight: FontWeight.w600,
     height: 1.3,
-    letterSpacing: 0.7,
+    letterSpacing: 0.15,
     color: AppColors.steelGray,
   );
 
   static TextStyle get meta => caption;
 
-  static TextStyle get button => GoogleFonts.sourceSans3(
+  static TextStyle get button => GoogleFonts.cairo(
     fontSize: 15,
     fontWeight: FontWeight.w700,
     height: 1.2,
-    letterSpacing: 0.5,
+    letterSpacing: 0.1,
     color: AppColors.paperWhite,
   );
 }
