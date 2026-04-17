@@ -34,14 +34,18 @@ class CustomNewsCard extends StatelessWidget {
                 backgroundColor: featured
                     ? const Color(0x33FFFFFF)
                     : const Color(0x14C62828),
-                foregroundColor: featured ? Colors.white : const Color(0xFFC62828),
+                foregroundColor: featured
+                    ? Colors.white
+                    : const Color(0xFFC62828),
               ),
               Custom3dBadge(
                 label: story.category,
                 backgroundColor: featured
                     ? const Color(0x1FFFFFFF)
                     : const Color(0x140B1F3A),
-                foregroundColor: featured ? Colors.white : const Color(0xFF0B1F3A),
+                foregroundColor: featured
+                    ? Colors.white
+                    : const Color(0xFF0B1F3A),
               ),
             ],
           ),
@@ -102,10 +106,7 @@ Widget _buildMetaChip({
     children: [
       Icon(icon, size: 15, color: color),
       const SizedBox(width: 6),
-      Text(
-        label,
-        style: AppTextStyles.caption.copyWith(color: color),
-      ),
+      Text(label, style: AppTextStyles.caption.copyWith(color: color)),
     ],
   );
 }

@@ -103,7 +103,11 @@ class MainNewsView extends GetView<MainNewsController> {
                 spacing: 16,
                 runSpacing: 16,
                 children: [
-                  for (var index = 0; index < section.highlights.length; index++)
+                  for (
+                    var index = 0;
+                    index < section.highlights.length;
+                    index++
+                  )
                     Custom3dReveal(
                       delay: Duration(milliseconds: 120 + (index * 40)),
                       child: Custom3dStatBox(
@@ -114,8 +118,8 @@ class MainNewsView extends GetView<MainNewsController> {
                         icon: index == 0
                             ? Icons.track_changes_outlined
                             : index == 1
-                                ? Icons.timer_outlined
-                                : Icons.account_tree_outlined,
+                            ? Icons.timer_outlined
+                            : Icons.account_tree_outlined,
                       ),
                     ),
                 ],
@@ -145,12 +149,18 @@ class MainNewsView extends GetView<MainNewsController> {
                 spacing: 16,
                 runSpacing: 16,
                 children: [
-                  for (var index = 0; index < section.sideStories.length; index++)
+                  for (
+                    var index = 0;
+                    index < section.sideStories.length;
+                    index++
+                  )
                     SizedBox(
                       width: 360,
                       child: Custom3dReveal(
                         delay: Duration(milliseconds: 260 + (index * 40)),
-                        child: _SupportingStoryCard(story: section.sideStories[index]),
+                        child: _SupportingStoryCard(
+                          story: section.sideStories[index],
+                        ),
                       ),
                     ),
                 ],
@@ -164,10 +174,7 @@ class MainNewsView extends GetView<MainNewsController> {
 }
 
 class _HeroCopy extends StatelessWidget {
-  const _HeroCopy({
-    required this.story,
-    required this.bulletPoints,
-  });
+  const _HeroCopy({required this.story, required this.bulletPoints});
 
   final ProgramStory story;
   final List<String> bulletPoints;

@@ -21,11 +21,7 @@ class App3dStyles {
   );
 
   static const LinearGradient panelHighlight = LinearGradient(
-    colors: [
-      Color(0x22FFFFFF),
-      Colors.transparent,
-      Color(0x10C62828),
-    ],
+    colors: [Color(0x22FFFFFF), Colors.transparent, Color(0x10C62828)],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
@@ -53,10 +49,7 @@ class App3dStyles {
         return BoxDecoration(
           borderRadius: BorderRadius.circular(radius),
           gradient: LinearGradient(
-            colors: [
-              accent.withValues(alpha: 0.90),
-              const Color(0xFF5F101E),
-            ],
+            colors: [accent.withValues(alpha: 0.90), const Color(0xFF5F101E)],
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
           ),
@@ -85,7 +78,9 @@ class App3dStyles {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
-          border: Border.all(color: AppColors.borderGray.withValues(alpha: 0.9)),
+          border: Border.all(
+            color: AppColors.borderGray.withValues(alpha: 0.9),
+          ),
           boxShadow: AppDepthTokens.surfaceShadow(AppColors.midnightBlue),
         );
     }
@@ -103,10 +98,7 @@ class App3dStyles {
                 Colors.white.withValues(alpha: 0.08),
                 Colors.white.withValues(alpha: 0.03),
               ]
-            : [
-                Colors.white,
-                const Color(0xFFE8EEF6),
-              ],
+            : [Colors.white, const Color(0xFFE8EEF6)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -142,6 +134,6 @@ class App3dStyles {
       ..rotateX(rotateX)
       ..rotateY(rotateY)
       ..rotateZ(rotateZ)
-      ..scale(scale);
+      ..scaleByDouble(scale, scale, scale, 1);
   }
 }

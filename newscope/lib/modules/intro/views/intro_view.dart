@@ -114,9 +114,9 @@ class IntroView extends GetView<IntroController> {
                                               note,
                                               style: AppTextStyles.caption
                                                   .copyWith(
-                                                color: AppColors.paperWhite,
-                                                height: 1.8,
-                                              ),
+                                                    color: AppColors.paperWhite,
+                                                    height: 1.8,
+                                                  ),
                                             ),
                                           ),
                                         )
@@ -135,8 +135,8 @@ class IntroView extends GetView<IntroController> {
                                         label:
                                             'انتقال تلقائي خلال ${controller.countdown.value} ثوان',
                                         icon: Icons.timer_outlined,
-                                        backgroundColor:
-                                            Colors.white.withValues(alpha: 0.10),
+                                        backgroundColor: Colors.white
+                                            .withValues(alpha: 0.10),
                                         foregroundColor: AppColors.paperWhite,
                                       ),
                                     ],
@@ -162,9 +162,13 @@ class IntroView extends GetView<IntroController> {
                                     padding: const EdgeInsets.all(18),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(24),
-                                      color: Colors.white.withValues(alpha: 0.06),
+                                      color: Colors.white.withValues(
+                                        alpha: 0.06,
+                                      ),
                                       border: Border.all(
-                                        color: Colors.white.withValues(alpha: 0.08),
+                                        color: Colors.white.withValues(
+                                          alpha: 0.08,
+                                        ),
                                       ),
                                     ),
                                     child: Row(

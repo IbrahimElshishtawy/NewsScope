@@ -218,10 +218,7 @@ class _HighlightsPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(22),
-      decoration: App3dStyles.panelDecoration(
-        tone: App3dTone.dark,
-        radius: 28,
-      ),
+      decoration: App3dStyles.panelDecoration(tone: App3dTone.dark, radius: 28),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -239,7 +236,9 @@ class _HighlightsPanel extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(18),
-                  border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.08),
+                  ),
                 ),
                 child: Text(
                   item,

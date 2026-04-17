@@ -49,11 +49,17 @@ class _Custom3dCardState extends State<Custom3dCard> {
     return AnimatedContainer(
       duration: AppDepthTokens.shortMotion,
       curve: Curves.easeOutCubic,
-      transform: App3dStyles.tiltedMatrix(
-        rotateX: _pressed ? 0.01 : 0,
-        rotateY: _pressed ? -0.02 : 0,
-        scale: _pressed ? 0.988 : 1,
-      )..translate(0.0, _pressed ? AppDepthTokens.pressedDepth : 0.0),
+      transform:
+          App3dStyles.tiltedMatrix(
+            rotateX: _pressed ? 0.01 : 0,
+            rotateY: _pressed ? -0.02 : 0,
+            scale: _pressed ? 0.988 : 1,
+          )..translateByDouble(
+            0.0,
+            _pressed ? AppDepthTokens.pressedDepth : 0.0,
+            0.0,
+            1.0,
+          ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(

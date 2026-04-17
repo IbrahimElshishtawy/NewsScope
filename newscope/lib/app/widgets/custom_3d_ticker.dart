@@ -34,7 +34,9 @@ class Custom3dTicker extends StatelessWidget {
           children: [
             Custom3dBadge(
               label: label,
-              icon: isUrgent ? Icons.priority_high_rounded : Icons.wifi_tethering,
+              icon: isUrgent
+                  ? Icons.priority_high_rounded
+                  : Icons.wifi_tethering,
               backgroundColor: Colors.white.withValues(alpha: 0.14),
               foregroundColor: AppColors.paperWhite,
             ),

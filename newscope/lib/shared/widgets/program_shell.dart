@@ -42,10 +42,11 @@ class ProgramShell extends StatelessWidget {
               Expanded(
                 child: SingleChildScrollView(
                   padding: EdgeInsets.only(
-                    top: CustomAppBar(
-                      title: title,
-                      subtitle: subtitle,
-                    ).preferredSize.height +
+                    top:
+                        CustomAppBar(
+                          title: title,
+                          subtitle: subtitle,
+                        ).preferredSize.height +
                         12,
                   ),
                   child: Center(

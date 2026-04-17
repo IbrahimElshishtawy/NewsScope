@@ -39,11 +39,7 @@ class Custom3dBackground extends StatelessWidget {
             ),
           ),
           if (showSignalRings) ...[
-            const Positioned(
-              top: 80,
-              left: -40,
-              child: _SignalRing(size: 240),
-            ),
+            const Positioned(top: 80, left: -40, child: _SignalRing(size: 240)),
             const Positioned(
               top: 110,
               right: 30,
@@ -89,9 +85,7 @@ class _GlowOrb extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        gradient: RadialGradient(
-          colors: [color, color.withValues(alpha: 0)],
-        ),
+        gradient: RadialGradient(colors: [color, color.withValues(alpha: 0)]),
       ),
     );
   }
@@ -122,9 +116,7 @@ class _GridOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: _GridPainter(),
-    );
+    return CustomPaint(painter: _GridPainter());
   }
 }
 

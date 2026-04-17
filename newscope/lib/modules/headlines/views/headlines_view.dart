@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newscope/app/theme/app_3d_styles.dart';
+import 'package:newscope/app/widgets/custom_3d_background.dart';
 import 'package:newscope/app/widgets/custom_3d_badge.dart';
 import 'package:newscope/app/widgets/custom_3d_quote_box.dart';
 import 'package:newscope/app/widgets/custom_3d_reveal.dart';
@@ -25,45 +26,50 @@ class HeadlinesView extends GetView<HeadlinesController> {
           title: 'العناوين الرئيسية',
           subtitle: 'موجز افتتاحي داخل واجهة ثلاثية الأبعاد',
         ),
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 112, 20, 12),
-          child: Column(
-            children: [
-              Custom3dReveal(child: _buildBanner()),
-              const SizedBox(height: 16),
-              Expanded(
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    final isWide = constraints.maxWidth >= 980;
-                    final anchorPanel = Custom3dReveal(
-                      delay: const Duration(milliseconds: 80),
-                      child: _buildAnchorPanel(),
-                    );
-                    final headlinesPanel = Custom3dReveal(
-                      delay: const Duration(milliseconds: 120),
-                      child: _buildHeadlinesPanel(),
-                    );
+        body: Custom3dBackground(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 112, 20, 12),
+            child: Column(
+              children: [
+                Custom3dReveal(child: _buildBanner()),
+                const SizedBox(height: 16),
+                Expanded(
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isWide = constraints.maxWidth >= 980;
+                      final anchorPanel = Custom3dReveal(
+                        delay: const Duration(milliseconds: 80),
+                        child: _buildAnchorPanel(),
+                      );
+                      final headlinesPanel = Custom3dReveal(
+                        delay: const Duration(milliseconds: 120),
+                        child: _buildHeadlinesPanel(),
+                      );
 
-                    return isWide
-                        ? Row(
-                            children: [
-                              Expanded(flex: 4, child: anchorPanel),
-                              const SizedBox(width: 16),
-                              Expanded(flex: 6, child: headlinesPanel),
-                            ],
-                          )
-                        : Column(
-                            children: [
-                              Expanded(flex: 4, child: anchorPanel),
-                              const SizedBox(height: 16),
-                              Expanded(flex: 6, child: headlinesPanel),
-                            ],
-                          );
-                  },
+                      return isWide
+                          ? Row(
+                              children: [
+                                Expanded(flex: 4, child: anchorPanel),
+                                const SizedBox(width: 16),
+                                Expanded(flex: 6, child: headlinesPanel),
+                              ],
+                            )
+                          : Column(
+                              children: [
+                                Expanded(flex: 4, child: anchorPanel),
+                                const SizedBox(height: 16),
+                                Expanded(flex: 6, child: headlinesPanel),
+                              ],
+                            );
+                    },
+                  ),
                 ),
-              ),
-              Custom3dTicker(items: controller.tickerItems, label: 'شريط العناوين'),
-            ],
+                Custom3dTicker(
+                  items: controller.tickerItems,
+                  label: 'شريط العناوين',
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -101,9 +107,7 @@ class HeadlinesView extends GetView<HeadlinesController> {
                 const SizedBox(height: 8),
                 Text(
                   'العناوين الرئيسية تظهر في طبقات مرتفعة مع فصل واضح بين مساحة المذيع ومكدس القصص الإخبارية.',
-                  style: AppTextStyles.body.copyWith(
-                    color: AppColors.softGray,
-                  ),
+                  style: AppTextStyles.body.copyWith(color: AppColors.softGray),
                 ),
               ],
             ),
@@ -121,10 +125,7 @@ class HeadlinesView extends GetView<HeadlinesController> {
   Widget _buildAnchorPanel() {
     return Container(
       width: double.infinity,
-      decoration: App3dStyles.panelDecoration(
-        tone: App3dTone.dark,
-        radius: 28,
-      ),
+      decoration: App3dStyles.panelDecoration(tone: App3dTone.dark, radius: 28),
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(22),
         child: Column(
@@ -142,7 +143,9 @@ class HeadlinesView extends GetView<HeadlinesController> {
                       begin: Alignment.topRight,
                       end: Alignment.bottomLeft,
                     ),
-                    border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.12),
+                    ),
                   ),
                   child: const Icon(
                     Icons.mic_rounded,
@@ -261,6 +264,8 @@ class HeadlinesView extends GetView<HeadlinesController> {
               title: controller.section.strapline,
               subtitle:
                   'العناوين مرتبة داخل بطاقات مرتفعة لتسهيل قراءة الموجز قبل الانتقال إلى التفاصيل.',
+              foregroundColor: AppColors.midnightBlue,
+              secondaryColor: AppColors.steelGray,
             ),
           ),
           Expanded(

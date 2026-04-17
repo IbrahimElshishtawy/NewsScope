@@ -32,9 +32,7 @@ class HomeView extends GetView<HomeController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Custom3dReveal(
-                          child: _buildHero(context),
-                        ),
+                        Custom3dReveal(child: _buildHero(context)),
                         const SizedBox(height: 22),
                         Custom3dReveal(
                           delay: const Duration(milliseconds: 80),
@@ -46,8 +44,8 @@ class HomeView extends GetView<HomeController> {
                             trailing: Custom3dBadge(
                               label: 'جاهز للبث',
                               icon: Icons.sensors,
-                              backgroundColor:
-                                  AppColors.broadcastRed.withValues(alpha: 0.18),
+                              backgroundColor: AppColors.broadcastRed
+                                  .withValues(alpha: 0.18),
                               foregroundColor: AppColors.broadcastRed,
                             ),
                           ),
@@ -59,10 +57,10 @@ class HomeView extends GetView<HomeController> {
                             final columns = width >= 1280
                                 ? 4
                                 : width >= 900
-                                    ? 3
-                                    : width >= 620
-                                        ? 2
-                                        : 1;
+                                ? 3
+                                : width >= 620
+                                ? 2
+                                : 1;
                             final cardWidth = columns == 1
                                 ? width
                                 : (width - ((columns - 1) * 16)) / columns;
@@ -71,9 +69,11 @@ class HomeView extends GetView<HomeController> {
                               spacing: 16,
                               runSpacing: 16,
                               children: [
-                                for (var index = 0;
-                                    index < controller.destinations.length;
-                                    index++)
+                                for (
+                                  var index = 0;
+                                  index < controller.destinations.length;
+                                  index++
+                                )
                                   SizedBox(
                                     width: cardWidth,
                                     height: 248,
@@ -82,9 +82,12 @@ class HomeView extends GetView<HomeController> {
                                         milliseconds: 120 + (index * 30),
                                       ),
                                       child: Custom3dNavTile(
-                                        title: controller.destinations[index].title,
-                                        subtitle:
-                                            controller.destinations[index].summary,
+                                        title: controller
+                                            .destinations[index]
+                                            .title,
+                                        subtitle: controller
+                                            .destinations[index]
+                                            .summary,
                                         schedule: controller
                                             .destinations[index]
                                             .scheduleLabel,
@@ -115,9 +118,11 @@ class HomeView extends GetView<HomeController> {
                           spacing: 16,
                           runSpacing: 16,
                           children: [
-                            for (var index = 0;
-                                index < controller.metrics.length;
-                                index++)
+                            for (
+                              var index = 0;
+                              index < controller.metrics.length;
+                              index++
+                            )
                               Custom3dReveal(
                                 delay: Duration(
                                   milliseconds: 200 + (index * 40),
@@ -132,8 +137,8 @@ class HomeView extends GetView<HomeController> {
                                   icon: index == 0
                                       ? Icons.view_module_outlined
                                       : index == 1
-                                          ? Icons.campaign_outlined
-                                          : Icons.wb_cloudy_outlined,
+                                      ? Icons.campaign_outlined
+                                      : Icons.wb_cloudy_outlined,
                                 ),
                               ),
                           ],
@@ -226,7 +231,11 @@ class HomeView extends GetView<HomeController> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(28),
               gradient: const LinearGradient(
-                colors: [Color(0x2200B8FF), Color(0x12FFFFFF), Color(0x20C62828)],
+                colors: [
+                  Color(0x2200B8FF),
+                  Color(0x12FFFFFF),
+                  Color(0x20C62828),
+                ],
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
               ),
@@ -278,8 +287,9 @@ class HomeView extends GetView<HomeController> {
                           color: AppColors.broadcastRed,
                           boxShadow: [
                             BoxShadow(
-                              color:
-                                  AppColors.broadcastRed.withValues(alpha: 0.5),
+                              color: AppColors.broadcastRed.withValues(
+                                alpha: 0.5,
+                              ),
                               blurRadius: 18,
                             ),
                           ],
@@ -349,11 +359,7 @@ class HomeView extends GetView<HomeController> {
           if (!isWide) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                copy,
-                const SizedBox(height: 20),
-                visual,
-              ],
+              children: [copy, const SizedBox(height: 20), visual],
             );
           }
 

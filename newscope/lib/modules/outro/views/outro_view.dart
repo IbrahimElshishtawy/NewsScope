@@ -63,8 +63,9 @@ class OutroView extends GetView<OutroController> {
                                 ),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: AppColors.broadcastRed
-                                        .withValues(alpha: 0.18),
+                                    color: AppColors.broadcastRed.withValues(
+                                      alpha: 0.18,
+                                    ),
                                     blurRadius: 36,
                                   ),
                                 ],

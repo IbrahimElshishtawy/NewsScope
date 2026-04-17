@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newscope/app/theme/app_3d_styles.dart';
 import 'package:newscope/app/widgets/custom_3d_badge.dart';
 import 'package:newscope/app/widgets/custom_3d_panel.dart';
 import 'package:newscope/themes/app_colors.dart';

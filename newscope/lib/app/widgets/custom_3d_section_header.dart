@@ -11,6 +11,8 @@ class Custom3dSectionHeader extends StatelessWidget {
     this.eyebrow,
     this.trailing,
     this.alignStart = true,
+    this.foregroundColor,
+    this.secondaryColor,
   });
 
   final String title;
@@ -18,6 +20,8 @@ class Custom3dSectionHeader extends StatelessWidget {
   final String? eyebrow;
   final Widget? trailing;
   final bool alignStart;
+  final Color? foregroundColor;
+  final Color? secondaryColor;
 
   @override
   Widget build(BuildContext context) {
@@ -33,28 +37,32 @@ class Custom3dSectionHeader extends StatelessWidget {
               if (eyebrow != null) ...[
                 Custom3dBadge(
                   label: eyebrow!,
-                  backgroundColor: AppColors.broadcastRed.withValues(alpha: 0.12),
+                  backgroundColor: AppColors.broadcastRed.withValues(
+                    alpha: 0.12,
+                  ),
                   foregroundColor: AppColors.broadcastRed,
                 ),
                 const SizedBox(height: 10),
               ],
-              Text(title, style: AppTextStyles.pageTitle),
+              Text(
+                title,
+                style: AppTextStyles.pageTitle.copyWith(
+                  color: foregroundColor ?? AppColors.paperWhite,
+                ),
+              ),
               if (subtitle != null) ...[
                 const SizedBox(height: 8),
                 Text(
                   subtitle!,
                   style: AppTextStyles.body.copyWith(
-                    color: AppColors.steelGray,
+                    color: secondaryColor ?? AppColors.softGray,
                   ),
                 ),
               ],
             ],
           ),
         ),
-        if (trailing != null) ...[
-          const SizedBox(width: 16),
-          trailing!,
-        ],
+        if (trailing != null) ...[const SizedBox(width: 16), trailing!],
       ],
     );
   }

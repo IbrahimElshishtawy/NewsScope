@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newscope/app/widgets/custom_3d_section_header.dart';
+import 'package:newscope/themes/app_colors.dart';
 
 class CustomSectionTitle extends StatelessWidget {
   const CustomSectionTitle({
@@ -19,6 +20,8 @@ class CustomSectionTitle extends StatelessWidget {
       title: title,
       subtitle: subtitle,
       eyebrow: eyebrow,
+      foregroundColor: AppColors.midnightBlue,
+      secondaryColor: AppColors.steelGray,
     );
   }
 }

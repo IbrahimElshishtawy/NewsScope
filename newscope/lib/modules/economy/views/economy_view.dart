@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newscope/app/data/models/economy_model.dart';
-import 'package:newscope/data/models/program_metric.dart';
+import 'package:newscope/app/theme/app_3d_styles.dart';
+import 'package:newscope/app/widgets/custom_3d_chart_panel.dart';
+import 'package:newscope/app/widgets/custom_3d_reveal.dart';
+import 'package:newscope/app/widgets/custom_3d_section_header.dart';
+import 'package:newscope/app/widgets/custom_3d_stat_box.dart';
 import 'package:newscope/modules/economy/controllers/economy_controller.dart';
 import 'package:newscope/shared/widgets/program_shell.dart';
-import 'package:newscope/themes/app_colors.dart';
 import 'package:newscope/themes/app_text_styles.dart';
 
 class EconomyView extends GetView<EconomyController> {
@@ -16,77 +19,101 @@ class EconomyView extends GetView<EconomyController> {
 
     return ProgramShell(
       title: 'الاقتصاد',
-      subtitle: 'شاشة مالية متكاملة للمؤشرات والعملات والمعادن والطاقة.',
+      subtitle: 'شاشة مالية ثلاثية الأبعاد بمؤشرات ولوحات تحليل مرتفعة',
       tickerItems: section.tickerItems,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Wrap(
-            spacing: 18,
-            runSpacing: 18,
-            crossAxisAlignment: WrapCrossAlignment.start,
+            spacing: 16,
+            runSpacing: 16,
             children: [
-              _buildChartPlaceholder(
-                title: 'اتجاهات السوق',
-                subtitle: 'مساحة مخصصة للرسم البياني الرئيسي',
-                icon: Icons.show_chart_outlined,
+              const SizedBox(
+                width: 420,
+                child: Custom3dChartPanel(
+                  title: 'اتجاهات السوق',
+                  subtitle: 'لوحة رئيسية تعرض المسار العام للمؤشرات المالية.',
+                  icon: Icons.show_chart_outlined,
+                ),
               ),
-              _buildChartPlaceholder(
-                title: 'قراءة السيولة',
-                subtitle: 'مساحة مخصصة للرسم البياني الثانوي',
-                icon: Icons.bar_chart_outlined,
+              const SizedBox(
+                width: 420,
+                child: Custom3dChartPanel(
+                  title: 'قراءة السيولة',
+                  subtitle: 'إطار ثانوي لتحليل النشاط والسيولة وتوزيع الحركة.',
+                  icon: Icons.bar_chart_outlined,
+                ),
               ),
             ],
           ),
           const SizedBox(height: 24),
-          Text('بطاقات السوق', style: AppTextStyles.sectionTitle),
-          const SizedBox(height: 14),
+          const Custom3dSectionHeader(
+            eyebrow: 'بطاقات السوق',
+            title: 'المؤشرات والمحركات',
+            subtitle:
+                'عرض المؤشرات الرئيسية داخل بطاقات مرتفعة بخط بصري يحاكي شاشات الاقتصاد التلفزيونية.',
+          ),
+          const SizedBox(height: 16),
           Wrap(
-            spacing: 18,
-            runSpacing: 18,
-            children: controller.economyItems
-                .map((item) => _buildMarketCard(item))
-                .toList(),
+            spacing: 16,
+            runSpacing: 16,
+            children: [
+              for (
+                var index = 0;
+                index < controller.economyItems.length;
+                index++
+              )
+                SizedBox(
+                  width: 360,
+                  child: Custom3dReveal(
+                    delay: Duration(milliseconds: 80 + (index * 30)),
+                    child: _MarketCard(item: controller.economyItems[index]),
+                  ),
+                ),
+            ],
           ),
           const SizedBox(height: 24),
-          Text('العملات والذهب والنفط', style: AppTextStyles.sectionTitle),
-          const SizedBox(height: 14),
+          const Custom3dSectionHeader(
+            eyebrow: 'سلع وعملات',
+            title: 'العملات والذهب والطاقة',
+            subtitle:
+                'قراءات قصيرة داخل صناديق عائمة تمنح لوحات السوق إيقاعاً واضحاً ومتوازناً.',
+          ),
+          const SizedBox(height: 16),
           Wrap(
-            spacing: 18,
-            runSpacing: 18,
+            spacing: 16,
+            runSpacing: 16,
             children: [
-              ...controller.currencyRates.map(
-                (item) => _buildEconomyInfoBox(
+              for (final item in [
+                ...controller.currencyRates,
+                controller.goldPrice,
+                controller.oilPrice,
+              ])
+                Custom3dStatBox(
                   label: item.title,
                   value: item.value,
-                  details: item.analysis,
+                  caption: item.analysis,
+                  tone: item.type == 'oil' ? App3dTone.dark : App3dTone.surface,
                 ),
-              ),
-              _buildEconomyInfoBox(
-                label: controller.goldPrice.title,
-                value: controller.goldPrice.value,
-                details: controller.goldPrice.analysis,
-              ),
-              _buildEconomyInfoBox(
-                label: controller.oilPrice.title,
-                value: controller.oilPrice.value,
-                details: controller.oilPrice.analysis,
-              ),
             ],
           ),
           const SizedBox(height: 24),
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(22),
-            decoration: BoxDecoration(
-              color: AppColors.paperWhite,
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(color: AppColors.borderGray),
+            decoration: App3dStyles.panelDecoration(
+              tone: App3dTone.glass,
+              radius: 30,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('خلاصة التحليل المالي', style: AppTextStyles.sectionTitle),
+                const Custom3dSectionHeader(
+                  eyebrow: 'خلاصة مالية',
+                  title: 'القراءة النهائية',
+                  subtitle:
+                      'ملخص تحليلي داخل حاوية زجاجية يعزز إحساس غرفة بيانات اقتصادية متقدمة.',
+                ),
                 const SizedBox(height: 14),
                 Text(
                   controller.financialAnalysis.analysis,
@@ -94,11 +121,21 @@ class EconomyView extends GetView<EconomyController> {
                 ),
                 const SizedBox(height: 18),
                 Wrap(
-                  spacing: 18,
-                  runSpacing: 18,
-                  children: section.highlights
-                      .map((metric) => _buildMetricStrip(metric))
-                      .toList(),
+                  spacing: 16,
+                  runSpacing: 16,
+                  children: [
+                    for (
+                      var index = 0;
+                      index < section.highlights.length;
+                      index++
+                    )
+                      Custom3dStatBox(
+                        label: section.highlights[index].label,
+                        value: section.highlights[index].value,
+                        caption: section.highlights[index].caption,
+                        tone: index == 1 ? App3dTone.dark : App3dTone.surface,
+                      ),
+                  ],
                 ),
               ],
             ),
@@ -107,163 +144,38 @@ class EconomyView extends GetView<EconomyController> {
       ),
     );
   }
+}
 
-  Widget _buildChartPlaceholder({
-    required String title,
-    required String subtitle,
-    required IconData icon,
-  }) {
+class _MarketCard extends StatelessWidget {
+  const _MarketCard({required this.item});
+
+  final EconomyModel item;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      width: 420,
-      padding: const EdgeInsets.all(22),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [AppColors.midnightBlue, AppColors.studioBlue],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(28),
+      padding: const EdgeInsets.all(18),
+      decoration: App3dStyles.panelDecoration(
+        tone: App3dTone.surface,
+        radius: 24,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text(item.market, style: AppTextStyles.caption),
+          const SizedBox(height: 8),
+          Text(item.title, style: AppTextStyles.bodyStrong),
+          const SizedBox(height: 10),
           Text(
-            title,
-            style: AppTextStyles.sectionTitle.copyWith(
-              color: AppColors.paperWhite,
-            ),
+            item.value,
+            style: AppTextStyles.pageTitle.copyWith(fontSize: 28),
           ),
-          const SizedBox(height: 6),
-          Text(
-            subtitle,
-            style: AppTextStyles.caption.copyWith(color: AppColors.softGray),
-          ),
-          const SizedBox(height: 20),
-          Container(
-            height: 180,
-            decoration: BoxDecoration(
-              color: AppColors.paperWhite.withValues(alpha: 0.08),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Stack(
-              children: [
-                for (final left in [46.0, 118.0, 190.0, 262.0, 334.0])
-                  Positioned(
-                    left: left,
-                    bottom: 20,
-                    child: Container(
-                      width: 24,
-                      height: 44 + (left / 4),
-                      decoration: BoxDecoration(
-                        color: AppColors.paperWhite.withValues(alpha: 0.28),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                Center(
-                  child: Icon(icon, size: 58, color: AppColors.paperWhite),
-                ),
-              ],
-            ),
-          ),
+          const SizedBox(height: 10),
+          Text(item.analysis, style: AppTextStyles.body),
+          const SizedBox(height: 10),
+          Text(item.change, style: AppTextStyles.caption),
         ],
       ),
     );
   }
-}
-
-Widget _buildMarketCard(EconomyModel item) {
-  return Container(
-    constraints: const BoxConstraints(minWidth: 280, maxWidth: 390),
-    padding: const EdgeInsets.all(18),
-    decoration: BoxDecoration(
-      color: AppColors.paperWhite,
-      borderRadius: BorderRadius.circular(22),
-      border: Border.all(color: AppColors.borderGray),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Wrap(
-          spacing: 10,
-          runSpacing: 8,
-          children: [
-            Text(
-              item.market,
-              style: AppTextStyles.caption.copyWith(
-                color: AppColors.broadcastRed,
-              ),
-            ),
-            Text(item.publishTime, style: AppTextStyles.caption),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Text(item.title, style: AppTextStyles.bodyStrong),
-        const SizedBox(height: 10),
-        Text(
-          item.value,
-          style: AppTextStyles.pageTitle.copyWith(fontSize: 28),
-        ),
-        const SizedBox(height: 10),
-        Text(item.analysis, style: AppTextStyles.body),
-        const SizedBox(height: 10),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          decoration: BoxDecoration(
-            color: AppColors.ivory,
-            borderRadius: BorderRadius.circular(999),
-          ),
-          child: Text(item.change, style: AppTextStyles.caption),
-        ),
-      ],
-    ),
-  );
-}
-
-Widget _buildMetricStrip(ProgramMetric metric) {
-  return Container(
-    width: 230,
-    padding: const EdgeInsets.all(18),
-    decoration: BoxDecoration(
-      color: AppColors.ivory,
-      borderRadius: BorderRadius.circular(18),
-      border: Border.all(color: AppColors.borderGray),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(metric.label, style: AppTextStyles.caption),
-        const SizedBox(height: 8),
-        Text(metric.value, style: AppTextStyles.headline),
-        const SizedBox(height: 8),
-        Text(metric.caption, style: AppTextStyles.body),
-      ],
-    ),
-  );
-}
-
-Widget _buildEconomyInfoBox({
-  required String label,
-  required String value,
-  required String details,
-}) {
-  return Container(
-    width: 250,
-    padding: const EdgeInsets.all(18),
-    decoration: BoxDecoration(
-      color: AppColors.paperWhite,
-      borderRadius: BorderRadius.circular(22),
-      border: Border.all(color: AppColors.borderGray),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: AppTextStyles.caption),
-        const SizedBox(height: 8),
-        Text(value, style: AppTextStyles.headline),
-        const SizedBox(height: 8),
-        Text(details, style: AppTextStyles.body),
-      ],
-    ),
-  );
 }

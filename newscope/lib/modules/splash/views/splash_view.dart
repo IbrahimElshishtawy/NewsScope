@@ -107,7 +107,9 @@ class SplashView extends GetView<SplashController> {
                                         vertical: 10,
                                       ),
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(999),
+                                        borderRadius: BorderRadius.circular(
+                                          999,
+                                        ),
                                         color: AppColors.broadcastRed
                                             .withValues(alpha: 0.14),
                                         border: Border.all(
@@ -135,8 +137,9 @@ class SplashView extends GetView<SplashController> {
                     borderRadius: BorderRadius.circular(999),
                     child: LinearProgressIndicator(
                       minHeight: 5,
-                      backgroundColor:
-                          AppColors.paperWhite.withValues(alpha: 0.12),
+                      backgroundColor: AppColors.paperWhite.withValues(
+                        alpha: 0.12,
+                      ),
                       valueColor: const AlwaysStoppedAnimation<Color>(
                         AppColors.broadcastRed,
                       ),
@@ -172,7 +175,11 @@ class SplashView extends GetView<SplashController> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(42),
               gradient: const LinearGradient(
-                colors: [Color(0x331F9FFF), Color(0x14FFFFFF), Color(0x33C62828)],
+                colors: [
+                  Color(0x331F9FFF),
+                  Color(0x14FFFFFF),
+                  Color(0x33C62828),
+                ],
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
               ),
@@ -187,10 +194,7 @@ class SplashView extends GetView<SplashController> {
           ),
           Transform(
             alignment: Alignment.center,
-            transform: App3dStyles.tiltedMatrix(
-              rotateX: 0.08,
-              rotateY: -0.12,
-            ),
+            transform: App3dStyles.tiltedMatrix(rotateX: 0.08, rotateY: -0.12),
             child: Container(
               width: 132,
               height: 132,

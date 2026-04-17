@@ -75,10 +75,7 @@ class Custom3dWeatherCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 6),
-            Text(
-              details,
-              style: AppTextStyles.body.copyWith(color: secondary),
-            ),
+            Text(details, style: AppTextStyles.body.copyWith(color: secondary)),
             if (range != null) ...[
               const SizedBox(height: 10),
               Text(
