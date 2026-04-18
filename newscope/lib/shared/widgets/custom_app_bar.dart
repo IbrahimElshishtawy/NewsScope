@@ -28,14 +28,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return SafeArea(
       bottom: false,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
+        padding: const EdgeInsets.fromLTRB(0, 1, 2, 0),
         child: Container(
           decoration: App3dStyles.panelDecoration(
             tone: App3dTone.glass,
             radius: AppDepthTokens.radiusLg,
           ),
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 16, 16, 16),
+            padding: const EdgeInsets.fromLTRB(10, 6, 6, 10),
             child: Row(
               children: [
                 Expanded(
@@ -49,11 +49,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         backgroundColor: Color(0x22FFFFFF),
                         foregroundColor: AppColors.paperWhite,
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 5),
                       Text(
                         title,
                         style: AppTextStyles.sectionTitle.copyWith(
                           color: AppColors.paperWhite,
+                          fontSize: 15,
                         ),
                       ),
                       if (subtitle != null) ...[
@@ -64,7 +65,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                           overflow: TextOverflow.ellipsis,
                           style: AppTextStyles.caption.copyWith(
                             color: AppColors.softGray,
-                            fontSize: 14,
+                            fontSize: 11,
                           ),
                         ),
                       ],

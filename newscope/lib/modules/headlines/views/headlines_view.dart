@@ -28,7 +28,7 @@ class HeadlinesView extends GetView<HeadlinesController> {
         ),
         body: Custom3dBackground(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 112, 20, 12),
+            padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
             child: Column(
               children: [
                 Custom3dReveal(child: _buildBanner()),

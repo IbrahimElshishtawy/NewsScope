@@ -24,7 +24,7 @@ class Custom3dBadge extends StatelessWidget {
     final foreground = foregroundColor ?? AppColors.midnightBlue;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
       decoration: BoxDecoration(
         color: background,
         borderRadius: BorderRadius.circular(AppDepthTokens.radiusXs),
@@ -32,7 +32,7 @@ class Custom3dBadge extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: foreground.withValues(alpha: 0.08),
-            blurRadius: 12,
+            blurRadius: 10,
             offset: const Offset(0, 6),
           ),
         ],
