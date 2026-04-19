@@ -35,91 +35,122 @@ class Custom3dMediaFrame extends StatelessWidget {
       tone: tone,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           AspectRatio(
             aspectRatio: aspectRatio,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                gradient: LinearGradient(
-                  colors: isDark
-                      ? [
-                          Colors.white.withValues(alpha: 0.08),
-                          Colors.white.withValues(alpha: 0.03),
-                        ]
-                      : [Colors.white, const Color(0xFFE8EEF6)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                border: Border.all(
-                  color: isDark
-                      ? Colors.white.withValues(alpha: 0.08)
-                      : AppColors.borderGray.withValues(alpha: 0.8),
-                ),
-              ),
-              child: Stack(
-                children: [
-                  for (final top in [30.0, 72.0, 114.0, 156.0])
-                    Positioned(
-                      left: 18,
-                      right: 18,
-                      top: top,
-                      child: Container(
-                        height: 1,
-                        color: foreground.withValues(alpha: 0.08),
-                      ),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isCompact =
+                    constraints.maxHeight < 220 || constraints.maxWidth < 340;
+                final iconSize = (constraints.maxHeight * 0.28)
+                    .clamp(46.0, 72.0)
+                    .toDouble();
+                final titleFontSize = (isCompact ? 20.0 : 23.0)
+                    .clamp(18.0, 23.0)
+                    .toDouble();
+                final subtitleFontSize = isCompact ? 13.5 : 15.0;
+                final outerPadding = isCompact ? 14.0 : 18.0;
+                final titleSpacing = isCompact ? 8.0 : 10.0;
+                final subtitleSpacing = isCompact ? 6.0 : 8.0;
+
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+                    gradient: LinearGradient(
+                      colors: isDark
+                          ? [
+                              Colors.white.withValues(alpha: 0.08),
+                              Colors.white.withValues(alpha: 0.03),
+                            ]
+                          : [Colors.white, const Color(0xFFE8EEF6)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
                     ),
-                  if (badge != null)
-                    Positioned(
-                      top: 16,
-                      left: 16,
-                      child: Custom3dBadge(
-                        label: badge!,
-                        icon: Icons.play_circle_fill_outlined,
-                        backgroundColor: AppColors.broadcastRed.withValues(
-                          alpha: 0.18,
-                        ),
-                        foregroundColor: isDark
-                            ? AppColors.paperWhite
-                            : AppColors.broadcastRed,
-                      ),
-                    ),
-                  Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(icon, size: 72, color: foreground),
-                        const SizedBox(height: 10),
-                        Text(
-                          title,
-                          textAlign: TextAlign.center,
-                          style: AppTextStyles.headline.copyWith(
-                            color: foreground,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 18),
-                          child: Text(
-                            subtitle,
-                            textAlign: TextAlign.center,
-                            style: AppTextStyles.body.copyWith(
-                              color: secondary,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      ],
+                    border: Border.all(
+                      color: isDark
+                          ? Colors.white.withValues(alpha: 0.08)
+                          : AppColors.borderGray.withValues(alpha: 0.8),
                     ),
                   ),
-                ],
-              ),
+                  child: Stack(
+                    children: [
+                      for (final top in [30.0, 72.0, 114.0, 156.0])
+                        Positioned(
+                          left: 18,
+                          right: 18,
+                          top: top,
+                          child: Container(
+                            height: 1,
+                            color: foreground.withValues(alpha: 0.08),
+                          ),
+                        ),
+                      if (badge != null)
+                        Positioned(
+                          top: 16,
+                          left: 16,
+                          child: Custom3dBadge(
+                            label: badge!,
+                            icon: Icons.play_circle_fill_outlined,
+                            backgroundColor: AppColors.broadcastRed.withValues(
+                              alpha: 0.18,
+                            ),
+                            foregroundColor: isDark
+                                ? AppColors.paperWhite
+                                : AppColors.broadcastRed,
+                          ),
+                        ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(
+                          outerPadding,
+                          badge != null ? 52 : outerPadding,
+                          outerPadding,
+                          outerPadding,
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(icon, size: iconSize, color: foreground),
+                              SizedBox(height: titleSpacing),
+                              Text(
+                                title,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: AppTextStyles.headline.copyWith(
+                                  color: foreground,
+                                  fontSize: titleFontSize,
+                                ),
+                              ),
+                              SizedBox(height: subtitleSpacing),
+                              Text(
+                                subtitle,
+                                maxLines: isCompact ? 3 : 4,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: AppTextStyles.body.copyWith(
+                                  color: secondary,
+                                  fontSize: subtitleFontSize,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           ),
           if (footer != null) ...[
-            const SizedBox(height: 14),
+            const SizedBox(height: 12),
             Text(
               footer!,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: AppTextStyles.caption.copyWith(color: secondary),
             ),
           ],

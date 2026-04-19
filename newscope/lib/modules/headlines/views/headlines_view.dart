@@ -27,56 +27,99 @@ class HeadlinesView extends GetView<HeadlinesController> {
           subtitle: 'موجز افتتاحي داخل واجهة ثلاثية الأبعاد',
         ),
         body: Custom3dBackground(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
-            child: Column(
-              children: [
-                Custom3dReveal(child: _buildBanner()),
-                const SizedBox(height: 16),
-                Expanded(
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      final isWide = constraints.maxWidth >= 980;
-                      final anchorPanel = Custom3dReveal(
-                        delay: const Duration(milliseconds: 80),
-                        child: _buildAnchorPanel(),
-                      );
-                      final headlinesPanel = Custom3dReveal(
-                        delay: const Duration(milliseconds: 120),
-                        child: _buildHeadlinesPanel(),
-                      );
+          child: LayoutBuilder(
+            builder: (context, viewport) {
+              final useScrollableLayout = viewport.maxHeight < 760;
+              final pagePadding = EdgeInsets.fromLTRB(
+                viewport.maxWidth < 700 ? 16 : 20,
+                12,
+                viewport.maxWidth < 700 ? 16 : 20,
+                12,
+              );
 
-                      return isWide
-                          ? Row(
-                              children: [
-                                Expanded(flex: 4, child: anchorPanel),
-                                const SizedBox(width: 16),
-                                Expanded(flex: 6, child: headlinesPanel),
-                              ],
-                            )
-                          : Column(
-                              children: [
-                                Expanded(flex: 4, child: anchorPanel),
-                                const SizedBox(height: 16),
-                                Expanded(flex: 6, child: headlinesPanel),
-                              ],
-                            );
-                    },
+              if (useScrollableLayout) {
+                return SingleChildScrollView(
+                  padding: pagePadding,
+                  child: Column(
+                    children: [
+                      Custom3dReveal(
+                        child: _buildBanner(isCompact: viewport.maxWidth < 720),
+                      ),
+                      const SizedBox(height: 16),
+                      Custom3dReveal(
+                        delay: const Duration(milliseconds: 80),
+                        child: _buildAnchorPanel(scrollableContent: false),
+                      ),
+                      const SizedBox(height: 16),
+                      Custom3dReveal(
+                        delay: const Duration(milliseconds: 120),
+                        child: _buildHeadlinesPanel(scrollableList: false),
+                      ),
+                      const SizedBox(height: 16),
+                      Custom3dTicker(
+                        items: controller.tickerItems,
+                        label: 'شريط العناوين',
+                      ),
+                    ],
                   ),
+                );
+              }
+
+              return Padding(
+                padding: pagePadding,
+                child: Column(
+                  children: [
+                    Custom3dReveal(
+                      child: _buildBanner(isCompact: viewport.maxWidth < 720),
+                    ),
+                    const SizedBox(height: 16),
+                    Expanded(
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          final isWide = constraints.maxWidth >= 980;
+                          final anchorPanel = Custom3dReveal(
+                            delay: const Duration(milliseconds: 80),
+                            child: _buildAnchorPanel(scrollableContent: true),
+                          );
+                          final headlinesPanel = Custom3dReveal(
+                            delay: const Duration(milliseconds: 120),
+                            child: _buildHeadlinesPanel(scrollableList: true),
+                          );
+
+                          return isWide
+                              ? Row(
+                                  children: [
+                                    Expanded(flex: 4, child: anchorPanel),
+                                    const SizedBox(width: 16),
+                                    Expanded(flex: 6, child: headlinesPanel),
+                                  ],
+                                )
+                              : Column(
+                                  children: [
+                                    Expanded(flex: 4, child: anchorPanel),
+                                    const SizedBox(height: 16),
+                                    Expanded(flex: 6, child: headlinesPanel),
+                                  ],
+                                );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Custom3dTicker(
+                      items: controller.tickerItems,
+                      label: 'شريط العناوين',
+                    ),
+                  ],
                 ),
-                Custom3dTicker(
-                  items: controller.tickerItems,
-                  label: 'شريط العناوين',
-                ),
-              ],
-            ),
+              );
+            },
           ),
         ),
       ),
     );
   }
 
-  Widget _buildBanner() {
+  Widget _buildBanner({required bool isCompact}) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(22),
@@ -84,170 +127,193 @@ class HeadlinesView extends GetView<HeadlinesController> {
         tone: App3dTone.accent,
         radius: 28,
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
+      child: isCompact
+          ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Custom3dBadge(
-                  label: 'موجز الافتتاح',
-                  icon: Icons.view_headline_rounded,
-                  backgroundColor: Color(0x22FFFFFF),
-                  foregroundColor: AppColors.paperWhite,
-                ),
-                const SizedBox(height: 14),
-                Text(
-                  controller.bannerTitle,
-                  style: AppTextStyles.masthead.copyWith(
-                    color: AppColors.paperWhite,
-                    fontSize: 30,
+                _buildBannerCopy(titleSize: 26),
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: controller.openMainNews,
+                    child: const Text('إلى الخبر الرئيسي'),
                   ),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  'العناوين الرئيسية تظهر في طبقات مرتفعة مع فصل واضح بين مساحة المذيع ومكدس القصص الإخبارية.',
-                  style: AppTextStyles.body.copyWith(color: AppColors.softGray),
+              ],
+            )
+          : Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(child: _buildBannerCopy(titleSize: 30)),
+                const SizedBox(width: 16),
+                ElevatedButton(
+                  onPressed: controller.openMainNews,
+                  child: const Text('إلى الخبر الرئيسي'),
                 ),
               ],
             ),
+    );
+  }
+
+  Widget _buildBannerCopy({required double titleSize}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Custom3dBadge(
+          label: 'موجز الافتتاح',
+          icon: Icons.view_headline_rounded,
+          backgroundColor: Color(0x22FFFFFF),
+          foregroundColor: AppColors.paperWhite,
+        ),
+        const SizedBox(height: 14),
+        Text(
+          controller.bannerTitle,
+          style: AppTextStyles.masthead.copyWith(
+            color: AppColors.paperWhite,
+            fontSize: titleSize,
           ),
-          const SizedBox(width: 16),
-          ElevatedButton(
-            onPressed: controller.openMainNews,
-            child: const Text('إلى الخبر الرئيسي'),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'العناوين الرئيسية تظهر في طبقات مرتفعة مع فصل واضح بين مساحة المذيع ومكدس القصص الإخبارية.',
+          style: AppTextStyles.body.copyWith(color: AppColors.softGray),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAnchorPanel({required bool scrollableContent}) {
+    final content = Padding(
+      padding: const EdgeInsets.all(22),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 74,
+                height: 74,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF143861), Color(0xFF08172C)],
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                  ),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.12),
+                  ),
+                ),
+                child: const Icon(
+                  Icons.mic_rounded,
+                  color: AppColors.paperWhite,
+                  size: 36,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      controller.anchorName,
+                      style: AppTextStyles.headline.copyWith(
+                        color: AppColors.paperWhite,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      controller.anchorRole,
+                      style: AppTextStyles.caption.copyWith(
+                        color: AppColors.softGray,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 22),
+          Custom3dSectionHeader(
+            eyebrow: 'منطقة التقديم',
+            title: 'افتتاحية المذيع',
+            subtitle: controller.section.quote.quote,
+            trailing: const Icon(
+              Icons.graphic_eq_rounded,
+              color: AppColors.paperWhite,
+            ),
+          ),
+          const SizedBox(height: 18),
+          Custom3dQuoteBox(
+            quote: controller.section.quote.quote,
+            speaker: controller.section.quote.speaker,
+            role: controller.section.quote.role,
+            tone: App3dTone.glass,
+          ),
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(18),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(22),
+              color: Colors.white.withValues(alpha: 0.06),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'مسار القراءة',
+                  style: AppTextStyles.bodyStrong.copyWith(
+                    color: AppColors.paperWhite,
+                  ),
+                ),
+                const SizedBox(height: 14),
+                for (final item in controller.section.agenda)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 6),
+                          child: Icon(
+                            Icons.fiber_manual_record_rounded,
+                            size: 10,
+                            color: AppColors.broadcastRed,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            item,
+                            softWrap: true,
+                            style: AppTextStyles.caption.copyWith(
+                              color: AppColors.paperWhite,
+                              height: 1.8,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
           ),
         ],
       ),
     );
-  }
 
-  Widget _buildAnchorPanel() {
     return Container(
       width: double.infinity,
       decoration: App3dStyles.panelDecoration(tone: App3dTone.dark, radius: 28),
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(22),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 74,
-                  height: 74,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF143861), Color(0xFF08172C)],
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                    ),
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.12),
-                    ),
-                  ),
-                  child: const Icon(
-                    Icons.mic_rounded,
-                    color: AppColors.paperWhite,
-                    size: 36,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        controller.anchorName,
-                        style: AppTextStyles.headline.copyWith(
-                          color: AppColors.paperWhite,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        controller.anchorRole,
-                        style: AppTextStyles.caption.copyWith(
-                          color: AppColors.softGray,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 22),
-            Custom3dSectionHeader(
-              eyebrow: 'منطقة التقديم',
-              title: 'افتتاحية المذيع',
-              subtitle: controller.section.quote.quote,
-              trailing: const Icon(
-                Icons.graphic_eq_rounded,
-                color: AppColors.paperWhite,
-              ),
-            ),
-            const SizedBox(height: 18),
-            Custom3dQuoteBox(
-              quote: controller.section.quote.quote,
-              speaker: controller.section.quote.speaker,
-              role: controller.section.quote.role,
-              tone: App3dTone.glass,
-            ),
-            const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.all(18),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(22),
-                color: Colors.white.withValues(alpha: 0.06),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'مسار القراءة',
-                    style: AppTextStyles.bodyStrong.copyWith(
-                      color: AppColors.paperWhite,
-                    ),
-                  ),
-                  const SizedBox(height: 14),
-                  for (final item in controller.section.agenda)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(top: 6),
-                            child: Icon(
-                              Icons.fiber_manual_record_rounded,
-                              size: 10,
-                              color: AppColors.broadcastRed,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              item,
-                              style: AppTextStyles.caption.copyWith(
-                                color: AppColors.paperWhite,
-                                height: 1.8,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      child: scrollableContent
+          ? SingleChildScrollView(child: content)
+          : content,
     );
   }
 
-  Widget _buildHeadlinesPanel() {
+  Widget _buildHeadlinesPanel({required bool scrollableList}) {
     return Container(
       width: double.infinity,
       decoration: App3dStyles.panelDecoration(
@@ -268,8 +334,23 @@ class HeadlinesView extends GetView<HeadlinesController> {
               secondaryColor: AppColors.steelGray,
             ),
           ),
-          Expanded(
-            child: ListView.separated(
+          if (scrollableList)
+            Expanded(
+              child: ListView.separated(
+                padding: const EdgeInsets.fromLTRB(22, 0, 22, 22),
+                itemCount: controller.stories.length,
+                separatorBuilder: (_, _) => const SizedBox(height: 14),
+                itemBuilder: (context, index) => HeadlineItemTile(
+                  indexLabel: '${index + 1}',
+                  story: controller.stories[index],
+                  isLead: index == 0,
+                ),
+              ),
+            )
+          else
+            ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.fromLTRB(22, 0, 22, 22),
               itemCount: controller.stories.length,
               separatorBuilder: (_, _) => const SizedBox(height: 14),
@@ -279,7 +360,6 @@ class HeadlinesView extends GetView<HeadlinesController> {
                 isLead: index == 0,
               ),
             ),
-          ),
         ],
       ),
     );
