@@ -1,118 +1,137 @@
 # NewsScope
 
+<p align="center">
+  <img src="newscope/assets/images/1.jpg" width="45%" />
+  <img src="newscope/assets/images/2.jpg" width="45%" />
+</p>
+
 A premium Arabic news application built with **Flutter** and **GetX**, designed with a formal classic newsroom identity and enhanced with modern 3D-inspired UI elements.
 
-## Overview
+---
+
+## 📰 Overview
 
 NewsScope is a modular mobile news presentation app that simulates the structure of a professional TV news program. It includes multiple editorial sections such as headlines, main news, reports, economy, sports, weather, and breaking news, all presented through a responsive Flutter interface.
 
 The project follows a **GetX-based architecture** with separated modules, bindings, controllers, routes, shared widgets, and theme layers to keep the codebase scalable and maintainable.
 
-## Key Features
+---
 
-- Arabic-first user interface with RTL-friendly layout
-- Flutter + GetX architecture
-- Named routing with bindings for each screen
-- Reusable shared widgets
-- Professional classic news visual identity
-- 3D-inspired cards and layered UI presentation
-- Mock data support for rapid prototyping
-- Responsive layouts for different mobile sizes
-- Dedicated sections for:
-  - Splash
-  - Home Dashboard
-  - Intro
-  - Headlines
-  - Main News
-  - Report
-  - Quotes / Statements
-  - Local News
-  - Arab News
-  - International News
-  - Economy
-  - Breaking News
-  - Sports
-  - Weather
-  - Outro
+## ✨ Key Features
 
-## Tech Stack
+- Arabic-first user interface with RTL-friendly layout  
+- Flutter + GetX architecture  
+- Named routing with bindings for each screen  
+- Reusable shared widgets  
+- Professional classic news visual identity  
+- 3D-inspired cards and layered UI presentation  
+- Mock data support for rapid prototyping  
+- Fully responsive layouts  
+
+### 📺 Program Sections
+
+- Splash  
+- Home Dashboard  
+- Intro  
+- Headlines  
+- Main News  
+- Report  
+- Quotes / Statements  
+- Local News  
+- Arab News  
+- International News  
+- Economy  
+- Breaking News  
+- Sports  
+- Weather  
+- Outro  
+
+---
+
+## 🛠 Tech Stack
 
 - **Flutter**
 - **Dart**
-- **GetX** for:
-  - State management
-  - Routing
-  - Dependency injection
+- **GetX**
+  - State Management  
+  - Routing  
+  - Dependency Injection  
 
-## Architecture Notes
+---
 
-This project follows a **feature-first modular structure**:
+## 🧠 Architecture
 
-- **views** contain UI screens
-- **controllers** manage state and presentation logic
-- **bindings** register dependencies for each route
-- **shared widgets** are reused across multiple modules
-- **theme files** define colors, typography, and visual tokens
-- **data layer** contains models, mock content, and repository logic
+The project follows a **feature-first modular architecture**:
 
-Each class is expected to live in its own file to improve readability and maintenance.
+- `views` → UI screens  
+- `controllers` → state & logic  
+- `bindings` → dependency injection  
+- `widgets` → reusable components  
+- `theme` → colors, typography, design tokens  
+- `data` → models, mock data, repositories  
 
-## UI / Design Direction
+Each class is placed in a separate file to ensure scalability and maintainability.
 
-The app is styled to reflect a **formal classic broadcast news system** while incorporating a more premium digital layer.
+---
 
-### Visual characteristics
+## 🎨 UI / Design System
 
-- Dark navy blue, red, white, and gray palette
-- Clean Arabic typography
-- Layered cards and 3D-inspired panels
-- Broadcast-style section headers and tickers
-- Elevated content containers for premium presentation
+NewsScope is built to reflect a **professional TV newsroom experience**.
 
-## Available Sections
+### Visual Identity
 
-### Splash
-Opening screen with logo and brand reveal.
+- 🎯 Dark navy blue + red + white palette  
+- 🧾 Clean Arabic typography  
+- 🧊 3D-inspired cards & layered panels  
+- 📡 Broadcast-style headers & tickers  
+- 🧩 Elevated content containers  
 
-### Home
-Dashboard that navigates to all news sections.
+---
 
-### Intro
-Broadcast-style opening scene for the news program.
+## 🗂 Available Sections
 
-### Headlines
-Displays the main bulletin headlines.
+### 🔹 Splash
+Opening screen with branding and logo animation.
 
-### Main News
-Highlights the lead story with featured presentation.
+### 🔹 Home
+Central dashboard for navigation.
 
-### Report
-Dedicated special report layout with media and analysis.
+### 🔹 Intro
+Broadcast-style program opening.
 
-### Quotes
-Official statements and highlighted quotes.
+### 🔹 Headlines
+Main bulletin headlines display.
 
-### Local News
-Covers domestic and city-level updates.
+### 🔹 Main News
+Featured top story presentation.
 
-### Arab News
-Regional Arabic news section.
+### 🔹 Report
+In-depth news analysis with media.
 
-### International News
-Global events and international developments.
+### 🔹 Quotes
+Official statements and highlights.
 
-### Economy
-Financial indicators, market summaries, and economic analysis.
+### 🔹 Local News
+Domestic and city-level updates.
 
-### Breaking News
-Urgent updates and fast-moving coverage.
+### 🔹 Arab News
+Regional Middle East coverage.
 
-### Sports
-Scores, match summaries, and sports highlights.
+### 🔹 International News
+Global developments and updates.
 
-### Weather
-Forecasts, temperatures, and weather alerts.
+### 🔹 Economy
+Markets, finance, and indicators.
 
-### Outro
-Closing screen and program ending.
+### 🔹 Breaking News
+Urgent real-time updates.
+
+### 🔹 Sports
+Match results and sports highlights.
+
+### 🔹 Weather
+Forecasts and alerts.
+
+### 🔹 Outro
+Closing scene of the program.
 
