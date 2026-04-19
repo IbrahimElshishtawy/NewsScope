@@ -24,20 +24,23 @@ class MainNewsView extends GetView<MainNewsController> {
 
     return ProgramShell(
       title: mainNews.category,
-      subtitle: 'الملف الأبرز داخل مشهد بصري مرتفع الطبقات',
+      subtitle: 'الملف الأبرز داخل مشهد بصري مرتب وواضح القراءة',
       tickerItems: section.tickerItems,
       body: LayoutBuilder(
         builder: (context, constraints) {
-          final isWide = constraints.maxWidth >= 1040;
+          final isWide = constraints.maxWidth >= 980;
+          final supportingWidth = isWide
+              ? 340.0
+              : constraints.maxWidth.clamp(0.0, 520.0).toDouble();
 
           final hero = Container(
             width: double.infinity,
             decoration: App3dStyles.panelDecoration(
               tone: App3dTone.dark,
-              radius: 32,
+              radius: 30,
             ),
             child: Padding(
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(18),
               child: isWide
                   ? Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +52,7 @@ class MainNewsView extends GetView<MainNewsController> {
                             bulletPoints: mainNews.bulletPoints,
                           ),
                         ),
-                        const SizedBox(width: 22),
+                        const SizedBox(width: 18),
                         Expanded(
                           flex: 9,
                           child: Custom3dMediaFrame(
@@ -70,7 +73,7 @@ class MainNewsView extends GetView<MainNewsController> {
                           story: leadStory,
                           bulletPoints: mainNews.bulletPoints,
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 18),
                         Custom3dMediaFrame(
                           title: 'إطار القصة الرئيسية',
                           subtitle: leadStory.summary,
@@ -88,20 +91,20 @@ class MainNewsView extends GetView<MainNewsController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Custom3dReveal(child: hero),
-              const SizedBox(height: 24),
+              const SizedBox(height: 22),
               Custom3dReveal(
                 delay: const Duration(milliseconds: 80),
                 child: const Custom3dSectionHeader(
                   eyebrow: 'لوحة المؤشرات',
                   title: 'مؤشرات الملف الرئيسي',
                   subtitle:
-                      'بطاقات مرتفعة تبرز أبعاد المتابعة التنفيذية والزمنية داخل الخبر الأبرز.',
+                      'بطاقات مختصرة تبرز زوايا المتابعة التنفيذية والزمنية دون ازدحام بصري.',
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 14),
               Wrap(
-                spacing: 16,
-                runSpacing: 16,
+                spacing: 14,
+                runSpacing: 14,
                 children: [
                   for (
                     var index = 0;
@@ -124,7 +127,7 @@ class MainNewsView extends GetView<MainNewsController> {
                     ),
                 ],
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 22),
               Custom3dReveal(
                 delay: const Duration(milliseconds: 180),
                 child: Custom3dQuoteBox(
@@ -134,20 +137,20 @@ class MainNewsView extends GetView<MainNewsController> {
                   tone: App3dTone.glass,
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 22),
               Custom3dReveal(
                 delay: const Duration(milliseconds: 220),
                 child: const Custom3dSectionHeader(
                   eyebrow: 'مسارات مساندة',
                   title: 'التغطية المتفرعة',
                   subtitle:
-                      'قصص دعم مرتبة كبطاقات معلقة لإبراز الامتدادات التحريرية للملف الرئيسي.',
+                      'قصص دعم مرتبة داخل بطاقات أخف وأوضح لإبراز امتدادات الملف الرئيسي.',
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 14),
               Wrap(
-                spacing: 16,
-                runSpacing: 16,
+                spacing: 14,
+                runSpacing: 14,
                 children: [
                   for (
                     var index = 0;
@@ -155,7 +158,7 @@ class MainNewsView extends GetView<MainNewsController> {
                     index++
                   )
                     SizedBox(
-                      width: 360,
+                      width: supportingWidth,
                       child: Custom3dReveal(
                         delay: Duration(milliseconds: 260 + (index * 40)),
                         child: _SupportingStoryCard(
@@ -181,96 +184,104 @@ class _HeroCopy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          children: [
-            const Custom3dBadge(
-              label: 'الملف الأبرز',
-              icon: Icons.campaign_outlined,
-              backgroundColor: Color(0x22FFFFFF),
-              foregroundColor: AppColors.paperWhite,
-            ),
-            Custom3dBadge(
-              label: story.category,
-              backgroundColor: Colors.white.withValues(alpha: 0.08),
-              foregroundColor: AppColors.paperWhite,
-            ),
-            Custom3dBadge(
-              label: story.timeLabel,
-              backgroundColor: Colors.white.withValues(alpha: 0.08),
-              foregroundColor: AppColors.paperWhite,
-            ),
-          ],
-        ),
-        const SizedBox(height: 18),
-        Text(
-          story.title,
-          style: AppTextStyles.pageTitle.copyWith(
-            color: AppColors.paperWhite,
-            fontSize: 36,
-            height: 1.3,
-          ),
-        ),
-        const SizedBox(height: 14),
-        Text(
-          story.summary,
-          style: AppTextStyles.body.copyWith(
-            color: AppColors.softGray,
-            fontSize: 17,
-          ),
-        ),
-        const SizedBox(height: 18),
-        Container(
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            color: Colors.white.withValues(alpha: 0.06),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
             children: [
-              Text(
-                'نقاط المتابعة الأساسية',
-                style: AppTextStyles.bodyStrong.copyWith(
-                  color: AppColors.paperWhite,
-                ),
+              const Custom3dBadge(
+                label: 'الملف الأبرز',
+                icon: Icons.campaign_outlined,
+                backgroundColor: Color(0x22FFFFFF),
+                foregroundColor: AppColors.paperWhite,
               ),
-              const SizedBox(height: 14),
-              for (final item in bulletPoints)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 6),
-                        child: Icon(
-                          Icons.circle,
-                          size: 8,
-                          color: AppColors.broadcastRed,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Text(
-                          item,
-                          style: AppTextStyles.body.copyWith(
-                            color: AppColors.paperWhite,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              Custom3dBadge(
+                label: story.category,
+                backgroundColor: Colors.white.withValues(alpha: 0.08),
+                foregroundColor: AppColors.paperWhite,
+              ),
+              Custom3dBadge(
+                label: story.timeLabel,
+                backgroundColor: Colors.white.withValues(alpha: 0.08),
+                foregroundColor: AppColors.paperWhite,
+              ),
             ],
           ),
-        ),
-      ],
+          const SizedBox(height: 14),
+          Text(
+            story.title,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.start,
+            style: AppTextStyles.cardTitle.copyWith(
+              color: AppColors.paperWhite,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            story.summary,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.start,
+            style: AppTextStyles.cardBody.copyWith(color: AppColors.softGray),
+          ),
+          const SizedBox(height: 14),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(22),
+              color: Colors.white.withValues(alpha: 0.06),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'نقاط المتابعة الأساسية',
+                  style: AppTextStyles.cardBodyStrong.copyWith(
+                    color: AppColors.paperWhite,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                for (final item in bulletPoints)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 6),
+                          child: Icon(
+                            Icons.circle,
+                            size: 7,
+                            color: AppColors.broadcastRed,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            item,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.start,
+                            style: AppTextStyles.cardBody.copyWith(
+                              color: AppColors.paperWhite,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -283,36 +294,53 @@ class _SupportingStoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(18),
       decoration: App3dStyles.panelDecoration(
         tone: App3dTone.surface,
-        radius: 26,
+        radius: 24,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              Custom3dBadge(
-                label: story.category,
-                backgroundColor: AppColors.broadcastRed.withValues(alpha: 0.10),
-                foregroundColor: AppColors.broadcastRed,
-              ),
-              Custom3dBadge(label: story.timeLabel),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(story.title, style: AppTextStyles.sectionTitle),
-          const SizedBox(height: 10),
-          Text(story.summary, style: AppTextStyles.body),
-          const SizedBox(height: 12),
-          Text(
-            '${story.location} | ${story.reporter}',
-            style: AppTextStyles.caption,
-          ),
-        ],
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                Custom3dBadge(
+                  label: story.category,
+                  backgroundColor: AppColors.broadcastRed.withValues(
+                    alpha: 0.10,
+                  ),
+                  foregroundColor: AppColors.broadcastRed,
+                ),
+                Custom3dBadge(label: story.timeLabel),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Text(
+              story.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.cardTitle,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              story.summary,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.cardBody,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              '${story.location} | ${story.reporter}',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.cardMeta,
+            ),
+          ],
+        ),
       ),
     );
   }

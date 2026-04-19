@@ -18,36 +18,51 @@ class LocalNewsItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Custom3dCard(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Custom3dBadge(
-            label: '$index',
-            backgroundColor: AppColors.broadcastRed,
-            foregroundColor: AppColors.paperWhite,
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: [
-                    _buildInfoChip(story.category),
-                    _buildInfoChip(story.timeLabel),
-                    _buildInfoChip(story.location),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Text(story.title, style: AppTextStyles.sectionTitle),
-                const SizedBox(height: 8),
-                Text(story.summary, style: AppTextStyles.body),
-              ],
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Custom3dBadge(
+              label: '$index',
+              backgroundColor: AppColors.broadcastRed,
+              foregroundColor: AppColors.paperWhite,
             ),
-          ),
-        ],
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      _buildInfoChip(story.category),
+                      _buildInfoChip(story.timeLabel),
+                      _buildInfoChip(story.location),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    story.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.start,
+                    style: AppTextStyles.cardTitle,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    story.summary,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.start,
+                    style: AppTextStyles.cardBody,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -61,6 +76,11 @@ Widget _buildInfoChip(String text) {
       borderRadius: BorderRadius.circular(999),
       border: Border.all(color: AppColors.borderGray),
     ),
-    child: Text(text, style: AppTextStyles.caption),
+    child: Text(
+      text,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: AppTextStyles.cardMeta,
+    ),
   );
 }

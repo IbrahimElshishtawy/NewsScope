@@ -24,21 +24,22 @@ class Custom3dBadge extends StatelessWidget {
     final foreground = foregroundColor ?? AppColors.midnightBlue;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
         color: background,
         borderRadius: BorderRadius.circular(AppDepthTokens.radiusXs),
         border: Border.all(color: foreground.withValues(alpha: 0.12)),
         boxShadow: [
           BoxShadow(
-            color: foreground.withValues(alpha: 0.08),
-            blurRadius: 10,
-            offset: const Offset(0, 6),
+            color: foreground.withValues(alpha: 0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
+        textDirection: TextDirection.rtl,
         children: [
           if (icon != null) ...[
             Icon(icon, size: 14, color: foreground),
@@ -46,10 +47,8 @@ class Custom3dBadge extends StatelessWidget {
           ],
           Text(
             label,
-            style: AppTextStyles.caption.copyWith(
-              color: foreground,
-              letterSpacing: 0.3,
-            ),
+            textAlign: TextAlign.start,
+            style: AppTextStyles.cardLabel.copyWith(color: foreground),
           ),
         ],
       ),

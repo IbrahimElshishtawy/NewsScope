@@ -25,45 +25,65 @@ class Custom3dSectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: alignStart
-                ? CrossAxisAlignment.start
-                : CrossAxisAlignment.center,
-            children: [
-              if (eyebrow != null) ...[
-                Custom3dBadge(
-                  label: eyebrow!,
-                  backgroundColor: AppColors.broadcastRed.withValues(
-                    alpha: 0.12,
-                  ),
-                  foregroundColor: AppColors.broadcastRed,
-                ),
-                const SizedBox(height: 10),
-              ],
-              Text(
-                title,
-                style: AppTextStyles.pageTitle.copyWith(
-                  color: foregroundColor ?? AppColors.paperWhite,
-                ),
-              ),
-              if (subtitle != null) ...[
-                const SizedBox(height: 8),
-                Text(
-                  subtitle!,
-                  style: AppTextStyles.body.copyWith(
-                    color: secondaryColor ?? AppColors.softGray,
-                  ),
-                ),
-              ],
-            ],
+    final crossAxisAlignment = alignStart
+        ? CrossAxisAlignment.start
+        : CrossAxisAlignment.center;
+    Widget buildCopy() {
+      return Column(
+        crossAxisAlignment: crossAxisAlignment,
+        children: [
+          Text(
+            title,
+            textAlign: alignStart ? TextAlign.start : TextAlign.center,
+            style: AppTextStyles.cardTitle.copyWith(
+              color: foregroundColor ?? AppColors.paperWhite,
+            ),
           ),
-        ),
-        if (trailing != null) ...[const SizedBox(width: 16), trailing!],
-      ],
+          if (subtitle != null) ...[
+            const SizedBox(height: 8),
+            Text(
+              subtitle!,
+              textAlign: alignStart ? TextAlign.start : TextAlign.center,
+              style: AppTextStyles.cardBody.copyWith(
+                color: secondaryColor ?? AppColors.softGray,
+              ),
+            ),
+          ],
+        ],
+      );
+    }
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final stackTrailing = trailing != null && constraints.maxWidth < 520;
+
+        return Column(
+          crossAxisAlignment: crossAxisAlignment,
+          children: [
+            if (eyebrow != null) ...[
+              Custom3dBadge(
+                label: eyebrow!,
+                backgroundColor: AppColors.broadcastRed.withValues(alpha: 0.12),
+                foregroundColor: AppColors.broadcastRed,
+              ),
+              const SizedBox(height: 10),
+            ],
+            if (!stackTrailing && trailing != null)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: buildCopy()),
+                  const SizedBox(width: 16),
+                  trailing!,
+                ],
+              )
+            else ...[
+              buildCopy(),
+              if (trailing != null) ...[const SizedBox(height: 12), trailing!],
+            ],
+          ],
+        );
+      },
     );
   }
 }

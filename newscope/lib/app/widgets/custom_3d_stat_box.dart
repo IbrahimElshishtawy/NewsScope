@@ -28,7 +28,7 @@ class Custom3dStatBox extends StatelessWidget {
     final secondary = isDark ? AppColors.softGray : AppColors.steelGray;
 
     return SizedBox(
-      width: 240,
+      width: 220,
       child: Custom3dCard(
         tone: tone,
         child: Column(
@@ -55,23 +55,23 @@ class Custom3dStatBox extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 18),
+            const SizedBox(height: 14),
             Text(
               value,
-              style: AppTextStyles.pageTitle.copyWith(
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.cardValue.copyWith(
                 color: tone == App3dTone.accent
                     ? AppColors.paperWhite
                     : foreground,
-                fontSize: 30,
               ),
             ),
             const SizedBox(height: 8),
             Text(
               caption,
-              style: AppTextStyles.body.copyWith(
-                color: secondary,
-                fontSize: 15,
-              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.cardBody.copyWith(color: secondary),
             ),
           ],
         ),

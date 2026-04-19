@@ -30,7 +30,7 @@ class Custom3dWeatherCard extends StatelessWidget {
     final secondary = isDark ? AppColors.softGray : AppColors.steelGray;
 
     return SizedBox(
-      width: 230,
+      width: 210,
       child: Custom3dCard(
         tone: tone,
         child: Column(
@@ -56,31 +56,40 @@ class Custom3dWeatherCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: Custom3dBadge(
-                    label: city,
-                    backgroundColor: isDark
-                        ? Colors.white.withValues(alpha: 0.12)
-                        : AppColors.midnightBlue.withValues(alpha: 0.06),
-                    foregroundColor: foreground,
+                  child: Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Custom3dBadge(
+                      label: city,
+                      backgroundColor: isDark
+                          ? Colors.white.withValues(alpha: 0.12)
+                          : AppColors.midnightBlue.withValues(alpha: 0.06),
+                      foregroundColor: foreground,
+                    ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 18),
+            const SizedBox(height: 14),
             Text(
               temperature,
-              style: AppTextStyles.pageTitle.copyWith(
-                color: foreground,
-                fontSize: 34,
-              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.cardValue.copyWith(color: foreground),
             ),
             const SizedBox(height: 6),
-            Text(details, style: AppTextStyles.body.copyWith(color: secondary)),
+            Text(
+              details,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.cardBody.copyWith(color: secondary),
+            ),
             if (range != null) ...[
               const SizedBox(height: 10),
               Text(
                 range!,
-                style: AppTextStyles.caption.copyWith(color: secondary),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: AppTextStyles.cardMeta.copyWith(color: secondary),
               ),
             ],
           ],

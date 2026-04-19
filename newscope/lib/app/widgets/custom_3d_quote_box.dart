@@ -32,7 +32,11 @@ class Custom3dQuoteBox extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 10,
+            runSpacing: 10,
             children: [
               Custom3dBadge(
                 label: 'اقتباس رئيسي',
@@ -42,37 +46,43 @@ class Custom3dQuoteBox extends StatelessWidget {
                     ? AppColors.paperWhite
                     : AppColors.broadcastRed,
               ),
-              const Spacer(),
               Icon(
                 Icons.graphic_eq_rounded,
-                color: foreground.withValues(alpha: 0.7),
+                size: 18,
+                color: foreground.withValues(alpha: 0.64),
               ),
             ],
           ),
-          const SizedBox(height: 18),
+          const SizedBox(height: 14),
           Text(
             '"$quote"',
-            style: AppTextStyles.pageTitle.copyWith(
+            maxLines: 5,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.start,
+            style: AppTextStyles.cardTitle.copyWith(
               color: foreground,
-              fontSize: 30,
-              height: 1.45,
+              height: 1.75,
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 14),
           Text(
             speaker,
-            style: AppTextStyles.headline.copyWith(color: foreground),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: AppTextStyles.cardTitleSecondary.copyWith(color: foreground),
           ),
           const SizedBox(height: 4),
           Text(
             role,
-            style: AppTextStyles.body.copyWith(color: secondary, fontSize: 15),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: AppTextStyles.cardBody.copyWith(color: secondary),
           ),
           if (source != null) ...[
             const SizedBox(height: 10),
             Text(
               source!,
-              style: AppTextStyles.caption.copyWith(color: secondary),
+              style: AppTextStyles.cardMeta.copyWith(color: secondary),
             ),
           ],
         ],

@@ -22,104 +22,132 @@ class ReportView extends GetView<ReportController> {
 
     return ProgramShell(
       title: 'التقرير الخاص',
-      subtitle: 'معالجة بصرية تحليلية تشبه غرفة تقارير ميدانية',
+      subtitle: 'معالجة تحليلية بهوية رسمية وتوزيع أخف للمحتوى',
       tickerItems: controller.tickerItems,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final isWide = constraints.maxWidth >= 1020;
+          final cardWidth = isWide
+              ? 340.0
+              : constraints.maxWidth.clamp(0.0, 520.0).toDouble();
 
           final mainColumn = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Custom3dReveal(
                 child: Container(
-                  padding: const EdgeInsets.all(22),
+                  padding: const EdgeInsets.all(18),
                   decoration: App3dStyles.panelDecoration(
                     tone: App3dTone.surface,
-                    radius: 30,
+                    radius: 28,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          const Custom3dBadge(
-                            label: 'تقرير ميداني',
-                            icon: Icons.ondemand_video_outlined,
-                            backgroundColor: Color(0x14C62828),
-                            foregroundColor: AppColors.broadcastRed,
-                          ),
-                          const Spacer(),
-                          Text(
-                            '${leadReport.location} | ${leadReport.publishTime}',
-                            style: AppTextStyles.caption,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Stack(
-                        children: [
-                          Custom3dMediaFrame(
-                            title: leadReport.title,
-                            subtitle: leadReport.description,
-                            icon: Icons.ondemand_video_outlined,
-                            badge: 'مادة التقرير',
-                            footer: 'المراسل: ${leadReport.reporter}',
-                            tone: App3dTone.dark,
-                          ),
-                          Positioned(
-                            top: 16,
-                            right: 16,
-                            child: Transform(
-                              alignment: Alignment.center,
-                              transform: App3dStyles.tiltedMatrix(
-                                rotateY: -0.08,
-                                rotateX: 0.03,
-                              ),
-                              child: Container(
-                                width: 180,
-                                padding: const EdgeInsets.all(14),
-                                decoration: App3dStyles.panelDecoration(
-                                  tone: App3dTone.glass,
-                                  radius: 22,
-                                ),
-                                child: Text(
-                                  'عنوان تحليلي معلق فوق الإطار الرئيسي لإبراز قيمة التقرير داخل المشهد.',
-                                  style: AppTextStyles.caption.copyWith(
-                                    color: AppColors.paperWhite,
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Wrap(
+                          alignment: WrapAlignment.spaceBetween,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          spacing: 10,
+                          runSpacing: 10,
+                          children: [
+                            const Custom3dBadge(
+                              label: 'تقرير ميداني',
+                              icon: Icons.ondemand_video_outlined,
+                              backgroundColor: Color(0x14C62828),
+                              foregroundColor: AppColors.broadcastRed,
+                            ),
+                            Text(
+                              '${leadReport.location} | ${leadReport.publishTime}',
+                              style: AppTextStyles.cardMeta,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 14),
+                        LayoutBuilder(
+                          builder: (context, sectionConstraints) {
+                            final showOverlayCard =
+                                sectionConstraints.maxWidth >= 620;
+
+                            return Stack(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    top: showOverlayCard ? 12 : 0,
+                                    left: showOverlayCard ? 12 : 0,
+                                  ),
+                                  child: Custom3dMediaFrame(
+                                    title: leadReport.title,
+                                    subtitle: leadReport.description,
+                                    icon: Icons.ondemand_video_outlined,
+                                    badge: 'مادة التقرير',
+                                    footer: 'المراسل: ${leadReport.reporter}',
+                                    tone: App3dTone.dark,
                                   ),
                                 ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 18),
-                      Text(leadReport.title, style: AppTextStyles.pageTitle),
-                      const SizedBox(height: 10),
-                      Text(leadReport.description, style: AppTextStyles.body),
-                    ],
+                                if (showOverlayCard)
+                                  PositionedDirectional(
+                                    top: 0,
+                                    start: 0,
+                                    child: Container(
+                                      width: 190,
+                                      padding: const EdgeInsets.all(14),
+                                      decoration: App3dStyles.panelDecoration(
+                                        tone: App3dTone.glass,
+                                        radius: 20,
+                                      ),
+                                      child: Text(
+                                        'زاوية سريعة تبرز قيمة التقرير وتبقي العنوان التحليلي حاضرًا دون حجز مساحة كبيرة.',
+                                        maxLines: 4,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: AppTextStyles.cardBody.copyWith(
+                                          color: AppColors.paperWhite,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          leadReport.title,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTextStyles.cardTitle,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          leadReport.description,
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTextStyles.cardBody,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 22),
               Custom3dReveal(
                 delay: const Duration(milliseconds: 100),
                 child: const Custom3dSectionHeader(
                   eyebrow: 'امتدادات ميدانية',
                   title: 'تقارير مرتبطة',
                   subtitle:
-                      'بطاقات جانبية مرتفعة لتكملة الملف الميداني وتوزيع المعلومات على طبقات مستقلة.',
+                      'بطاقات جانبية أخف تكمل الملف الميداني وتوزع المعلومات على طبقات واضحة.',
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 14),
               Wrap(
-                spacing: 16,
-                runSpacing: 16,
+                spacing: 14,
+                runSpacing: 14,
                 children: [
                   for (var index = 0; index < sideReports.length; index++)
                     SizedBox(
-                      width: 360,
+                      width: cardWidth,
                       child: Custom3dReveal(
                         delay: Duration(milliseconds: 140 + (index * 40)),
                         child: _FieldNoteCard(
@@ -140,7 +168,7 @@ class ReportView extends GetView<ReportController> {
                 delay: const Duration(milliseconds: 120),
                 child: _HighlightsPanel(highlights: leadReport.highlights),
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 16),
               Custom3dReveal(
                 delay: const Duration(milliseconds: 180),
                 child: Custom3dQuoteBox(
@@ -158,7 +186,7 @@ class ReportView extends GetView<ReportController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(flex: 12, child: mainColumn),
-                    const SizedBox(width: 22),
+                    const SizedBox(width: 18),
                     Expanded(flex: 5, child: sidePanel),
                   ],
                 )
@@ -186,24 +214,37 @@ class _FieldNoteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(16),
       decoration: App3dStyles.panelDecoration(
         tone: App3dTone.surface,
-        radius: 24,
+        radius: 22,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Custom3dBadge(
-            label: category,
-            backgroundColor: AppColors.broadcastRed.withValues(alpha: 0.10),
-            foregroundColor: AppColors.broadcastRed,
-          ),
-          const SizedBox(height: 10),
-          Text(title, style: AppTextStyles.bodyStrong),
-          const SizedBox(height: 10),
-          Text(description, style: AppTextStyles.body),
-        ],
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Custom3dBadge(
+              label: category,
+              backgroundColor: AppColors.broadcastRed.withValues(alpha: 0.10),
+              foregroundColor: AppColors.broadcastRed,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.cardTitleSecondary,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              description,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextStyles.cardBody,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -217,39 +258,44 @@ class _HighlightsPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(22),
-      decoration: App3dStyles.panelDecoration(tone: App3dTone.dark, radius: 28),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Custom3dSectionHeader(
-            eyebrow: 'بطاقات حقائق',
-            title: 'حقائق وإضاءات',
-            subtitle: 'نقاط معلقة إلى جانب التقرير لزيادة الإحساس التحليلي.',
-          ),
-          const SizedBox(height: 16),
-          for (final item in highlights)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 14),
-              child: Container(
-                padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.06),
-                  borderRadius: BorderRadius.circular(18),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.08),
+      padding: const EdgeInsets.all(18),
+      decoration: App3dStyles.panelDecoration(tone: App3dTone.dark, radius: 26),
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Custom3dSectionHeader(
+              eyebrow: 'بطاقات حقائق',
+              title: 'حقائق وإضاءات',
+              subtitle: 'نقاط مختصرة إلى جانب التقرير لزيادة الوضوح التحليلي.',
+            ),
+            const SizedBox(height: 14),
+            for (final item in highlights)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.06),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.08),
+                    ),
                   ),
-                ),
-                child: Text(
-                  item,
-                  style: AppTextStyles.body.copyWith(
-                    color: AppColors.paperWhite,
-                    fontSize: 15,
+                  child: Text(
+                    item,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTextStyles.cardBody.copyWith(
+                      color: AppColors.paperWhite,
+                    ),
                   ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
